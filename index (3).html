@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SHMK KID – a green clay world for kids</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f8faf5;--surface:#fff;--tint:#f1f8e4;--lime:#d5f28c;--line:#e3e9df;--text:#17362b;--muted:#62746a;--green:#0b4937;--green2:#247c57;--brand:#0b4937;--ring:#0b4937;--eyebrow:#31865e;--ink:#17362b;
+  --g1:var(--surface);--g2:var(--surface);--g3:var(--tint);--g4:var(--surface);--g5:var(--tint);--accent:var(--lime);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1f17;--surface:#14302a;--tint:#1a3d30;--line:#25503f;--text:#e6f4ec;--muted:#9bc4ae;--green:#247c57;--brand:#d5f28c;--ring:#d5f28c;--eyebrow:#7fdcab;--ink:#e6f4ec;--accent:#24503d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c1f17;--surface:#14302a;--tint:#1a3d30;--line:#25503f;--text:#e6f4ec;--muted:#9bc4ae;--green:#247c57;--brand:#d5f28c;--ring:#d5f28c;--eyebrow:#7fdcab;--ink:#e6f4ec;--accent:#24503d;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 system-ui,Arial,sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+.clay{border:1px solid var(--line)}
+nav.clay{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;margin:0 -22px;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px;background:var(--surface);box-shadow:0 2px 14px #0001;border:0;flex-wrap:wrap}
+nav b{font-size:22px;font-weight:900;color:var(--brand)}
+.links{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+nav .links .btn{background:none;border:0;padding:4px 0;font-weight:500;font-size:15px;color:var(--text)}
+nav .links .btn:hover{color:var(--green2)}
+nav #snd{background:var(--green);color:#fff;padding:10px 16px;font-weight:700}
+nav .links #snd:hover{color:#fff;opacity:.9}
+.btn{display:inline-block;border:0;background:var(--lime);color:#17362b;padding:13px 22px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;border-radius:0}
+.btn:hover{filter:brightness(.96)}
+.btn.g{background:var(--surface);color:var(--text);border:1px solid var(--line)}
+.btn.t{background:var(--green);color:#fff}
+:focus-visible{outline:3px solid var(--ring);outline-offset:3px}
+.hero.clay{margin:24px 0;background:linear-gradient(120deg,#0b4937,#247c57);color:#fff;padding:75px 7%;display:grid;grid-template-columns:1.4fr 1fr;align-items:center;gap:20px;border:0}
+.hero h1{font-size:clamp(34px,5vw,65px);line-height:1.1;margin:0 0 20px}
+.hero p{font-size:19px;margin:0 0 14px;max-width:36ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero .btn.g{background:transparent;color:#fff;border:2px solid var(--lime)}
+.hero :focus-visible{outline-color:var(--lime)}
+.stage{display:grid;place-items:center}
+.pet{width:min(260px,60vw);aspect-ratio:1;border:0;cursor:pointer;position:relative;border-radius:50% 50% 46% 46%;background:var(--lime);box-shadow:0 18px 34px rgba(0,0,0,.28)}
+.pet:not(.boing){animation:float 4s ease-in-out infinite}
+.pet.boing{animation:boing .6s}
+@keyframes float{50%{transform:translateY(-14px)}}
+@keyframes boing{0%{transform:scale(1)}30%{transform:scale(1.16,.8)}60%{transform:scale(.92,1.13)}100%{transform:scale(1)}}
+.eye{position:absolute;top:36%;width:15%;aspect-ratio:1;background:#0b4937;border-radius:50%}
+.eye::after{content:"";position:absolute;top:16%;left:22%;width:32%;height:32%;background:#fff;border-radius:50%}
+.eye.l{left:26%}.eye.r{right:26%}
+.mouth{position:absolute;left:50%;bottom:25%;width:26%;height:14%;transform:translateX(-50%);background:#0b4937;border-radius:0 0 90px 90px}
+.cheek{position:absolute;bottom:33%;width:13%;height:8%;background:#f08a7a;border-radius:50%;opacity:.8}
+.cheek.l{left:13%}.cheek.r{right:13%}
+.say{margin-top:22px;font-weight:700;font-size:20px;min-height:1.5em;text-align:center}
+.stats{display:flex;gap:15px;flex-wrap:wrap;margin:0 0 4px}
+.stat{flex:1 1 180px;padding:22px;background:var(--surface)}
+.stat b{display:block;font-size:38px;line-height:1.1;color:var(--brand);font-weight:900}
+.stat span{color:var(--muted);font-size:14px}
+.eyebrow{display:block;color:var(--eyebrow);text-transform:uppercase;letter-spacing:2px;font-size:12px;font-weight:800;margin-top:38px;padding-top:38px;border-top:1px solid var(--line)}
+.colors .eyebrow{border-top:0;margin-top:0;padding-top:0}
+h2{font-size:clamp(24px,3vw,36px);margin:4px 0 8px;line-height:1.2}
+.sub{color:var(--muted);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px;margin:20px 0 10px}
+.card{padding:22px;color:var(--text);cursor:pointer;text-align:left;font:inherit;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 12px 26px #0001}
+.card:active{transform:scale(.98)}
+.card .ico{font-size:40px;line-height:1;margin-bottom:8px}
+.card h3{margin:10px 0 4px;font-size:18px}
+.card p{margin:0;font-size:14px;opacity:.8}
+.abc{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:15px;margin:20px 0 10px}
+.tile{padding:16px 8px 14px;text-align:center;color:var(--text);cursor:pointer;font:inherit;transition:transform .25s,box-shadow .25s}
+.tile .L{display:block;font-size:44px;font-weight:900;color:var(--brand);line-height:1}
+.tile .e{display:block;font-size:30px;line-height:1.3}
+.tile small{display:block;font-size:13px;opacity:.85}
+.tile:hover,.num:hover,.trow:hover,.fm:hover{transform:translateY(-4px);box-shadow:0 12px 26px #0001}
+.on{outline:3px solid var(--ring);outline-offset:2px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 22px}
+.nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px;margin:20px 0 10px}
+.num{aspect-ratio:1;display:grid;place-items:center;font:inherit;font-size:20px;font-weight:800;color:var(--brand);cursor:pointer;transition:transform .25s,box-shadow .25s}
+.tbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:22px;background:var(--surface);margin:0 0 15px}
+.tbar .big{font-size:48px;font-weight:900;color:var(--brand);line-height:1;min-width:2.4ch;text-align:center}
+.tbar input[type=range]{flex:1 1 220px;min-width:160px;accent-color:var(--green2)}
+.tbar input[type=number]{font:inherit;font-size:18px;font-weight:600;width:90px;padding:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);text-align:center;border-radius:0}
+.m22{display:grid;grid-template-columns:repeat(2,96px);gap:10px}
+.m22 input{width:100%!important}
+.m22 small{color:var(--muted);font-size:12px}
+.mout{flex:1 1 260px;font-size:18px;line-height:1.7}
+.trows{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:15px;margin:0 0 10px}
+.trow{font:inherit;font-size:20px;font-weight:700;color:var(--text);padding:14px 18px;cursor:pointer;text-align:center;transition:transform .25s,box-shadow .25s}
+.trig{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:28px;align-items:center;padding:28px;background:var(--surface);margin:0 0 15px}
+.trig svg{width:100%;height:auto;max-width:300px;margin:auto;display:block}
+.trig p{margin:0 0 6px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:15px;margin:0 0 20px}
+.fm{font:inherit;color:var(--text);cursor:pointer;padding:20px;text-align:left;transition:transform .25s,box-shadow .25s}
+.fm small{display:block;font-size:13px;opacity:.75}
+.fm b{display:block;font-size:20px;line-height:1.35;margin-top:4px}
+.tscroll{overflow-x:auto;background:var(--surface);margin:0 0 20px}
+.vt{border-collapse:collapse;width:100%;min-width:520px;text-align:center;font-size:18px;font-weight:600}
+.vt th,.vt td{padding:12px 10px;border:1px solid var(--line)}
+.vt th{background:var(--green);color:#fff}
+.vt th:first-child{background:var(--lime);color:#17362b}
+.vt td{background:var(--surface)}
+.vt td[data-t]{cursor:pointer}.vt td[data-t]:hover{background:var(--tint)}
+.colors{padding:28px;background:var(--surface);margin:0 0 10px}
+.blobs{display:flex;gap:16px;flex-wrap:wrap}
+.blob{width:64px;height:64px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line),0 4px 10px #0002;cursor:pointer;transition:transform .12s}
+.blob:hover{transform:scale(1.08)}
+footer{background:#092e23;color:#fff;text-align:center;padding:40px 20px;margin:40px -22px 0}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:var(--green);color:#fff;padding:14px 22px;font-weight:600;transition:transform .25s;z-index:11}
+#toast.on{transform:translate(-50%,0)}
+dialog{border:1px solid var(--line);background:var(--surface);color:var(--text);padding:22px;width:min(660px,94vw);max-height:90vh;overflow:auto;border-radius:0}
+dialog::backdrop{background:rgba(9,46,35,.65)}
+.gh{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.gh h3{margin:0;font-size:24px}
+.gscore{font-weight:700;color:var(--muted);margin-bottom:10px;text-align:center}
+.gbig{font-size:60px;line-height:1.25;text-align:center;margin:8px 0;word-break:break-word}
+.gq{text-align:center;font-weight:700;font-size:20px;margin-bottom:14px}
+.gopts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.gopt{font:inherit;font-size:20px;font-weight:700;min-height:56px;padding:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);cursor:pointer}
+.gopt:hover{background:var(--tint)}
+.gopt.ok{background:var(--lime);color:#17362b;border-color:var(--green2)}
+.gopt.bad{background:#f7c9c1;color:#5b1409}
+.gplay{position:relative;height:300px;background:var(--tint);border:1px solid var(--line);overflow:hidden}
+.gpop{position:absolute;border:0;cursor:pointer;font-size:40px;background:none;padding:0;line-height:1}
+.gpop.bal{width:44px;height:56px;border-radius:50% 50% 46% 46%;font-size:0;box-shadow:inset -6px -8px 10px rgba(0,0,0,.18)}
+.gcards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gcard{aspect-ratio:1;font:inherit;font-size:38px;border:1px solid var(--line);background:var(--green);color:transparent;cursor:pointer}
+.gcard.up{background:var(--bg);color:var(--text)}
+.gcard.done{background:var(--lime);color:#17362b}
+.gpads{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gpad{font:inherit;font-size:34px;padding:24px 0;border:1px solid var(--line);cursor:pointer;color:#17362b}
+.gpad:active{transform:scale(.94)}
+.gwin{text-align:center;font-size:22px;font-weight:800;margin:14px 0}
+.gbar{height:22px;background:var(--tint);border:1px solid var(--line);margin:6px 0 14px}
+.gbar i{display:block;height:100%;background:var(--green2);width:0;transition:width .3s}
+.gtown{min-height:120px;font-size:42px;line-height:1.3;background:var(--tint);border:1px solid var(--line);padding:10px;margin-bottom:12px}
+.gstory{font-size:18px;line-height:1.7}
+.starc{font-weight:800;color:var(--brand)}
+nav #mus,nav #who{background:var(--green2);color:#fff;padding:10px 16px;font-weight:700}
+.lvb[aria-pressed=true],.tsb[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}
+nav .links #mus:hover,nav .links #who:hover{color:#fff;opacity:.9}
+.hat{position:absolute;top:-17%;left:50%;transform:translateX(-50%);font-size:64px;line-height:1;pointer-events:none}
+@media(max-width:800px){.hero.clay{grid-template-columns:1fr;padding:38px 24px}.trig{grid-template-columns:1fr}nav.clay .links{order:3;width:100%;font-size:13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto}}
+/* ===== responsive + menu ===== */
+:root{--pad:22px}
+.wrap{max-width:1320px;padding:0 var(--pad)}
+nav.clay{margin:0 calc(var(--pad)*-1);padding:10px var(--pad);flex-wrap:nowrap;gap:12px;min-height:64px}
+footer{margin:40px calc(var(--pad)*-1) 0}
+.logo{display:flex;align-items:center;text-decoration:none;white-space:nowrap}
+.navbar{display:flex;align-items:center;gap:12px;margin-left:auto;min-width:0}
+.il{font-size:15px;font-weight:600;color:var(--text);text-decoration:none;padding:6px 4px;white-space:nowrap}
+.il:hover{color:var(--green2)}
+.starc{font-size:15px;white-space:nowrap}
+.quick{display:flex;align-items:center;gap:8px}
+nav #snd,nav #mus,nav #who,#menuBtn{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-width:44px;height:44px;padding:0 12px;border:0;background:var(--green);color:#fff;font:inherit;font-size:18px;font-weight:700;cursor:pointer}
+nav #snd[aria-pressed=false],nav #mus[aria-pressed=false]{opacity:.55}
+#menuBtn{background:var(--lime);color:#17362b;font-size:26px;font-weight:900;line-height:1}
+nav .lbl{display:none}
+.mq .lbl,.mq .nm{display:inline}
+.menu{position:fixed;inset:0;z-index:20;visibility:hidden;transition:visibility 0s .3s}
+.menu.open{visibility:visible;transition-delay:0s}
+.menu .shade{position:absolute;inset:0;background:rgba(9,46,35,.55);opacity:0;transition:opacity .3s}
+.menu.open .shade{opacity:1}
+.menu .panel{position:absolute;top:0;right:0;bottom:0;width:min(380px,88vw);background:var(--surface);color:var(--text);box-shadow:-10px 0 30px #0004;padding:calc(16px + env(safe-area-inset-top,0px)) 18px calc(24px + env(safe-area-inset-bottom,0px));overflow:auto;transform:translateX(100%);transition:transform .3s}
+.menu.open .panel{transform:none}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.mh b{font-size:20px}
+.mt{margin:18px 0 8px;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--eyebrow)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mg a{display:block;padding:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);text-decoration:none;font-weight:600;font-size:15px}
+.mg a:hover{background:var(--tint)}
+.mq{display:flex;flex-wrap:wrap;gap:8px}
+@media(min-width:1500px){nav .lbl{display:inline}}
+@media(max-width:1400px){.wrap{max-width:1240px}.i5{display:none}}
+@media(max-width:1300px){.wrap{max-width:1160px}.i4{display:none}}
+@media(max-width:1200px){.wrap{max-width:1080px}.hero.clay{padding:64px 6%}.i3{display:none}}
+@media(max-width:1100px){.wrap{max-width:1000px}.i2{display:none}.grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
+@media(max-width:1080px){.wrap{max-width:960px}.i1{display:none}.abc{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}.fgrid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}}
+@media(max-width:980px){.wrap{max-width:none}.hero.clay{grid-template-columns:1.2fr 1fr;padding:52px 5%}.trig{grid-template-columns:minmax(200px,260px) 1fr;gap:20px}.stat b{font-size:34px}}
+@media(max-width:880px){.hero.clay{grid-template-columns:1fr;text-align:center;padding:44px 24px}.hero p{margin-inline:auto}.cta{justify-content:center}.trows{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.nums{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}.stats .stat{flex:1 1 140px}}
+@media(max-width:780px){.trig{grid-template-columns:1fr}.hero h1{font-size:clamp(32px,8vw,52px)}.tbar{padding:18px}.tbar .big{font-size:40px}.fm b{font-size:18px}.hero .stage{margin-top:10px}}
+@media(max-width:680px){:root{--pad:16px}body{font-size:15.5px}.logo b{font-size:19px}.nm{display:none}.mq .nm{display:inline}.hero.clay{padding:36px 18px;margin:16px 0}.hero p{font-size:17px}h2{font-size:clamp(22px,6.4vw,30px)}.eyebrow{margin-top:28px;padding-top:28px}.card{padding:18px}.stats{gap:10px}.starc{font-size:14px}.colors{padding:20px}}
+@media(max-width:560px){.grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.abc{grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}.fgrid{grid-template-columns:1fr}.btn{padding:11px 18px}.vt{font-size:16px}.gbig{font-size:48px}.gopt{font-size:18px}dialog{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:calc(14px + env(safe-area-inset-top,0px)) 14px calc(14px + env(safe-area-inset-bottom,0px))}.menu .panel{width:min(360px,92vw)}}
+@media(max-width:480px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.abc{grid-template-columns:repeat(3,minmax(0,1fr))}.nums{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.num{font-size:17px}.trows{grid-template-columns:1fr}.card .ico{font-size:34px}.card h3{font-size:16px}.card p{font-size:13px}.tbar{gap:12px}.stats .stat{flex:1 1 100%}.tile .L{font-size:36px}.tile .e{font-size:26px}.gcards{gap:6px}.gcard{font-size:30px}.gpads{gap:6px}.tbar input[type=number]{width:78px}}
+@media(max-width:360px){:root{--pad:12px}body{font-size:15px}.logo b{font-size:17px}nav.clay{gap:6px}.navbar{gap:8px}#menuBtn{min-width:40px;height:40px}.starc{font-size:12.5px}.abc{gap:8px}.tile{padding:12px 4px}.tile .L{font-size:30px}.hero.clay{padding:28px 14px}.hero h1{font-size:30px}.gh h3{font-size:19px}.btn{padding:10px 14px;font-size:14px}.mg{grid-template-columns:1fr}.grid{gap:10px}.card{padding:14px}}
+/* ---- full width + mobile nav fix ---- */
+html,body{max-width:100%;overflow-x:hidden}
+.wrap{max-width:none!important;width:100%}
+nav.clay{margin-left:calc(var(--pad,22px)*-1);margin-right:calc(var(--pad,22px)*-1)}
+.navbar{min-width:0;max-width:100%}
+@media(max-width:800px){
+  #langSel{width:74px;max-width:74px;font-size:13px!important;padding:8px 2px!important;text-overflow:clip}
+  .navbar{gap:6px;flex-wrap:nowrap}
+  nav.clay{gap:8px;padding-left:var(--pad,14px);padding-right:var(--pad,14px)}
+  nav b{font-size:19px}
+}
+@media(max-width:380px){#langSel{width:58px;max-width:58px}nav b{font-size:16px}}
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b4937">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<div class="wrap">
+  <nav class="clay" id="nav">
+    <a class="logo" href="#top" aria-label="SHMK KID home"><b>🧸 SHMK KID</b></a>
+    <div class="navbar" id="navbar">
+      <a class="il i1" href="#games">Games</a><a class="il i2" href="#abc">A to Z</a><a class="il i3" href="#hindi">क से ज्ञ</a><a class="il i4" href="#mathf">Maths</a><a class="il i5" href="#parent">Parent</a>
+      <span class="starc" id="strkC" title="Days in a row"></span><span class="starc" id="starC" aria-live="polite">⭐ 0</span>
+      <div class="quick" id="quick"><button class="btn" id="who" aria-label="Choose child profile">🧒<span class="nm"> Kid 1</span></button><button class="btn" id="snd" aria-pressed="true" aria-label="Sound" title="Sound">🔊<span class="lbl"> Sound on</span></button><button class="btn" id="mus" aria-pressed="false" aria-label="Music" title="Music">🔕<span class="lbl"> Music off</span></button></div>
+      <button id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menu">⋮</button>
+    </div>
+  </nav>
+  <div class="menu" id="menu" aria-hidden="true"><div class="shade" id="menuShade"></div>
+    <div class="panel" role="dialog" aria-modal="true" aria-label="Menu">
+      <div class="mh"><b>Menu</b><button class="btn t" id="menuClose" aria-label="Close menu">✕</button></div>
+      <p class="mt">Settings</p><div class="mq" id="menuQuick"></div>
+      <p class="mt">Play</p><div class="mg"><a href="#games">🎮 Games</a><a href="#paint">🧸 Pudding</a></div>
+      <p class="mt">Letters and numbers</p><div class="mg"><a href="#abc">A to Z</a><a href="#hindi">क से ज्ञ</a><a href="#barakhadi">बारहखड़ी</a><a href="#nums">1 to 100</a><a href="#hinum">हिंदी गिनती</a><a href="#tables">Tables</a></div>
+      <p class="mt">Maths</p><div class="mg"><a href="#trig">Trigonometry</a><a href="#algebra">(a+b) rules</a><a href="#mathf">All maths</a><a href="#matrix">Matrix</a><a href="#plgst">Profit &amp; GST</a></div>
+      <p class="mt">Look and learn</p><div class="mg"><a href="#cal">Months and days</a><a href="#cas">Colors, animals</a><a href="#sci">Science</a><a href="#gk">India GK</a><a href="#rhy">Rhymes, stories</a></div>
+      <p class="mt">Grown-ups</p><div class="mg"><a href="#parent">Parent corner</a></div>
+    </div>
+  </div>
+
+  <section class="hero clay">
+    <div>
+      <h1>Squish, play and learn!</h1>
+      <p>A soft green clay world made for kids. Poke Pudding to say hi, then pick a game.</p>
+      <div class="cta"><a class="btn" href="#games">Let’s play</a><a class="btn g" href="#paint">Paint Pudding</a></div>
+    </div>
+    <div class="stage">
+      
+      <button class="pet" id="pet" aria-label="Poke Pudding the clay pet">
+        <span class="eye l"></span><span class="eye r"></span><span class="cheek l"></span><span class="cheek r"></span><span class="mouth"></span>
+      </button>
+      <div class="say" id="say" aria-live="polite">Hi! I’m Pudding. Poke me!</div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat clay"><b>83</b><span>fun activities</span></div>
+    <div class="stat clay"><b id="pokes">0</b><span>Pudding pokes</span></div>
+    <div class="stat clay"><b>0</b><span>ads, ever</span></div>
+  </div>
+
+  <h2 id="games">Pick something fun</h2>
+  <p class="sub">Eighty-three games to squish, count, sing and build. Pick a level, and games marked Hard are for bigger kids.</p>
+  <div class="tbar clay" id="daily"><div><b>⭐ Today's challenge</b><div class="sub" id="dName" style="margin:0"></div></div><button class="btn" id="dGo">Play now</button></div>
+  <div class="tbar clay"><b>Level:</b><button class="btn g lvb" data-l="1" aria-pressed="false">🟢 Easy</button><button class="btn g lvb" data-l="2" aria-pressed="true">🟡 Medium</button><button class="btn g lvb" data-l="3" aria-pressed="false">🔴 Hard</button><span class="sub" style="margin:0">Easy uses smaller numbers. Hard has more questions and less time.</span></div>
+  <div class="tbar clay"><input type="search" id="gSearch" placeholder="Search games..." aria-label="Search games" style="flex:1 1 240px;font:inherit;font-size:18px;padding:12px;border:1px solid var(--line);background:var(--bg);color:var(--text)"></div>
+  <div id="favBox" style="display:none"><p class="sub"><b>⭐ Your favourites</b></p><div class="row" id="favRow"></div></div>
+  <div class="grid" id="grid"></div>
+
+  <h2 id="abc">A to Z</h2>
+  <p class="sub">Tap a letter to hear it and its word.</p>
+  <div class="row"><button class="btn" id="playAll">▶ Play A to Z</button><button class="btn g" id="stopAll">⏹ Stop</button></div>
+  <div class="abc" id="abc-grid"></div>
+
+  <div lang="hi">
+  <h2 id="hindi">क से ज्ञ तक</h2>
+  <p class="sub">हिंदी वर्णमाला। किसी भी अक्षर को दबाओ और उसका नाम सुनो।</p>
+  <p class="sub"><b>व्यंजन: क से ज्ञ तक</b></p>
+  <div class="row"><button class="btn" id="hRead">▶ क से ज्ञ सुनो</button><button class="btn t" id="hStop">⏹ रुको</button></div>
+  <div class="abc" id="hgrid"></div>
+  <p class="sub"><b>स्वर: अ से अः तक</b></p>
+  <div class="row"><button class="btn" id="vRead">▶ अ से अः सुनो</button><button class="btn t" id="vStop">⏹ रुको</button></div>
+  <div class="abc" id="vgrid"></div>
+  </div>
+
+  <div lang="hi">
+  <h2 id="barakhadi">बारहखड़ी</h2>
+  <p class="sub">अक्षर चुनो, फिर उसकी बारहखड़ी देखो और सुनो। क से ज्ञ तक सब अक्षर हैं।</p>
+  <div class="nums" id="bkChips"></div>
+  <p class="sub" style="margin-top:22px"><b id="bkTitle">क की बारहखड़ी</b></p>
+  <div class="row"><button class="btn" id="bkRead">▶ सुनो</button><button class="btn t" id="bkStop">⏹ रुको</button></div>
+  <div class="abc" id="bkGrid"></div>
+  <p class="sub"><b>सारी बारहखड़ी एक साथ: क से ज्ञ तक</b> (किसी भी खाने को दबाओ)</p>
+  <div class="tscroll clay"><table class="vt" id="bkTable" style="min-width:900px"></table></div>
+  </div>
+
+  <h2 id="nums">1 to 100</h2>
+  <p class="sub">Tap a number to hear it. Or let me count for you.</p>
+  <div class="row"><button class="btn" id="countAll">▶ Count 1 to 100</button><button class="btn g" id="countTens">Count by 10s</button><button class="btn t" id="stopCount">⏹ Stop</button></div>
+  <div class="nums" id="nums-grid"></div>
+
+  <h2 id="tables">Tables 1 to 100</h2>
+  <p class="sub">Pick a table from 1 to 100. Tap a line to hear it, or let me read the whole table.</p>
+  <div class="tbar clay">
+    <button class="btn g" id="tPrev" aria-label="Previous table">◀</button>
+    <span class="big" id="tBig">7</span>
+    <button class="btn g" id="tNext" aria-label="Next table">▶</button>
+    <input type="range" id="tRange" min="1" max="100" value="7" aria-label="Choose table">
+    <input type="number" id="tNum" min="1" max="100" value="7" aria-label="Table number">
+  </div>
+  <div class="row"><button class="btn" id="tRead">▶ Read table</button><button class="btn t" id="tStop">⏹ Stop</button><button class="btn g" id="tLen">Up to 10</button></div>
+  <div class="trows" id="trows"></div>
+
+  <h2 id="trig">Trigonometry formulas</h2>
+  <p class="sub">Tap any formula to hear it, or let me read them all.</p>
+  <div class="trig clay">
+    <svg viewBox="0 0 260 190" role="img" aria-label="Right triangle with base, perpendicular, hypotenuse and angle theta">
+      <polygon points="24,160 224,160 224,30" style="fill:var(--g2);stroke:var(--ink);stroke-width:4;stroke-linejoin:round"/>
+      <polyline points="204,160 204,140 224,140" style="fill:none;stroke:var(--ink);stroke-width:3"/>
+      <path d="M70,160 A46,46 0 0 0 64,142" style="fill:none;stroke:var(--ink);stroke-width:3"/>
+      <g style="fill:var(--ink);font:700 17px Fredoka,'Trebuchet MS',sans-serif">
+        <text x="78" y="153">θ</text>
+        <text x="100" y="184">Base (B)</text>
+        <text x="232" y="100">P</text>
+        <text x="94" y="84" transform="rotate(-33 94 84)">Hypotenuse (H)</text>
+      </g>
+    </svg>
+    <div><p><b>P</b> = Perpendicular (opposite side)</p><p><b>B</b> = Base (side next to the angle θ)</p><p><b>H</b> = Hypotenuse (longest side)</p><p>Pythagoras: <b>H² = P² + B²</b></p></div>
+  </div>
+  <div class="row"><button class="btn" id="fRead">▶ Read all formulas</button><button class="btn t" id="fStop">⏹ Stop</button></div>
+  <div class="fgrid" id="fgrid"></div>
+  <div class="tscroll clay"><table class="vt" aria-label="Trigonometric values for standard angles">
+    <tr><th>θ</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+    <tr><th>sin</th><td>0</td><td>1/2</td><td>1/√2</td><td>√3/2</td><td>1</td></tr>
+    <tr><th>cos</th><td>1</td><td>√3/2</td><td>1/√2</td><td>1/2</td><td>0</td></tr>
+    <tr><th>tan</th><td>0</td><td>1/√3</td><td>1</td><td>√3</td><td>∞</td></tr>
+    <tr><th>cosec</th><td>∞</td><td>2</td><td>√2</td><td>2/√3</td><td>1</td></tr>
+    <tr><th>sec</th><td>1</td><td>2/√3</td><td>√2</td><td>2</td><td>∞</td></tr>
+    <tr><th>cot</th><td>∞</td><td>√3</td><td>1</td><td>1/√3</td><td>0</td></tr>
+  </table></div>
+
+  <h2 id="algebra">(a + b) rules and algebra identities</h2>
+  <p class="sub">All the (a + b) and (a − b) rules in one place. Tap one to hear it.</p>
+  <div class="row"><button class="btn" id="aRead">▶ Read all</button><button class="btn t" id="aStop">⏹ Stop</button></div>
+  <div class="fgrid" id="agrid"></div>
+
+  <h2 id="mathf">All maths formulas</h2>
+  <p class="sub">Quadratics, powers, logs, interest, series, areas, volumes, coordinates and more.</p>
+  <div class="row"><button class="btn" id="mRead">▶ Read all</button><button class="btn t" id="mStop">⏹ Stop</button></div>
+  <div class="fgrid" id="mgrid"></div>
+
+  <h2 id="matrix">Matrix formulas</h2>
+  <p class="sub">Rules for adding, multiplying, transposing, determinants and inverses.</p>
+  <div class="tbar clay">
+    <div><b>Try a 2×2 matrix</b><div class="m22" style="margin-top:10px"><input type="number" id="m1" value="4" aria-label="a"><input type="number" id="m2" value="7" aria-label="b"><input type="number" id="m3" value="2" aria-label="c"><input type="number" id="m4" value="6" aria-label="d"></div></div>
+    <div class="mout" id="mout" aria-live="polite"></div>
+  </div>
+  <div class="row"><button class="btn" id="xRead">▶ Read all</button><button class="btn t" id="xStop">⏹ Stop</button></div>
+  <div class="fgrid" id="xgrid"></div>
+
+  <h2 id="plgst">Profit, loss and GST</h2>
+  <p class="sub">Formulas for profit, loss, discount and GST, with two calculators to try.</p>
+  <div class="tbar clay">
+    <div><b>Profit or loss calculator</b>
+      <div class="m22" style="margin-top:10px"><small>CP (cost price)</small><small>SP (selling price)</small>
+        <input type="number" id="cp" value="200" min="0" aria-label="Cost price"><input type="number" id="sp" value="250" min="0" aria-label="Selling price"></div></div>
+    <div class="mout" id="plOut" aria-live="polite"></div>
+  </div>
+  <div class="tbar clay">
+    <div><b>GST calculator</b>
+      <div class="m22" style="margin-top:10px"><small>Amount</small><small>GST rate %</small>
+        <input type="number" id="gA" value="1000" min="0" aria-label="Amount"><input type="number" id="gR" value="18" min="0" aria-label="GST rate in percent"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn g gq" style="padding:8px 16px" data-r="0">0%</button><button class="btn g gq" style="padding:8px 16px" data-r="5">5%</button><button class="btn g gq" style="padding:8px 16px" data-r="18">18%</button><button class="btn g gq" style="padding:8px 16px" data-r="40">40%</button></div></div>
+    <div class="mout" id="gOut" aria-live="polite"></div>
+  </div>
+  <div class="row"><button class="btn" id="pRead">▶ Read all</button><button class="btn t" id="pStop">⏹ Stop</button></div>
+  <div class="fgrid" id="pgrid"></div>
+  <p class="sub">India's main GST rates are 0%, 5%, 18% and 40% since 22 September 2025, when the old 12% and 28% rates were mostly removed. Rates can change, so check the official GST website for a specific item.</p>
+
+  <div lang="hi">
+  <h2 id="hinum">हिंदी गिनती 1 से 100</h2>
+  <p class="sub">किसी भी संख्या को दबाओ और उसका नाम सुनो।</p>
+  <div class="row"><button class="btn" id="hnRead">▶ सुनो</button><button class="btn t" id="hnStop">⏹ रुको</button></div>
+  <div class="abc" id="hngrid"></div>
+  </div>
+
+  <h2 id="cal">Months, days and seasons</h2>
+  <p class="sub">Tap a card to hear it in English. The Hindi name is below.</p>
+  <div class="row"><button class="btn" id="calRead">▶ Read all</button><button class="btn t" id="calStop">⏹ Stop</button></div>
+  <div class="abc" id="calgrid"></div>
+
+  <h2 id="cas">Colors, shapes and animals</h2>
+  <p class="sub">Colors, shapes and the sounds animals make.</p>
+  <div class="row"><button class="btn" id="casRead">▶ Read all</button><button class="btn t" id="casStop">⏹ Stop</button></div>
+  <div class="abc" id="casgrid"></div>
+
+  <h2 id="sci">Science for kids</h2>
+  <p class="sub">Our body, the planets, plants and the water cycle.</p>
+  <div class="row"><button class="btn" id="sciRead">▶ Read all</button><button class="btn t" id="sciStop">⏹ Stop</button></div>
+  <div class="abc" id="scigrid"></div>
+
+  <h2 id="gk">India GK</h2>
+  <p class="sub">National symbols, special days and festivals.</p>
+  <div class="row"><button class="btn" id="gkRead">▶ Read all</button><button class="btn t" id="gkStop">⏹ Stop</button></div>
+  <div class="abc" id="gkgrid"></div>
+
+  <h2 id="rhy">Rhymes and stories</h2>
+  <p class="sub">Pick one and I will read it to you, in English or Hindi.</p>
+  <div class="row" id="rsBtns"></div>
+  <div class="trig clay" id="rsBox" style="display:block;white-space:pre-line;font-size:20px;line-height:1.8"></div>
+  <div class="row"><button class="btn" id="rsRead">🔊 Read to me</button><button class="btn t" id="rsStop">⏹ Stop</button></div>
+
+  <h2 id="parent">Parent corner</h2>
+  <div class="tbar clay" id="appBox"><div><b>📲 App &amp; backup</b><div class="sub" style="margin:0">Install on your phone, or save and restore progress.</div></div>
+    <button class="btn" id="instBtn" style="display:none">📲 Install app</button><button class="btn g" id="bkpOut">⬇ Save backup</button><button class="btn g" id="bkpIn">⬆ Restore backup</button><input type="file" id="bkpFile" accept=".json,application/json" hidden></div>
+  <p class="sub">See how your child is doing. Progress is saved on this device only.</p>
+  <div class="tbar clay"><div class="mout" id="pStats"></div></div>
+  <div class="tbar clay"><div><b>Play time limit</b><div style="margin-top:8px"><select id="limSel" aria-label="Play time limit" style="font:inherit;font-size:18px;padding:10px;border:1px solid var(--line);background:var(--bg);color:var(--text)"><option value="0">Off</option><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">60 minutes</option></select></div></div><div><b>Parent PIN (4 digits)</b><div class="row" style="margin:8px 0 0"><input id="pinIn" type="password" inputmode="numeric" maxlength="4" placeholder="1234" aria-label="New PIN" style="font:inherit;font-size:18px;padding:10px;width:120px;border:1px solid var(--line);background:var(--bg);color:var(--text)"><button class="btn g" id="pinSave">Save PIN</button></div></div></div>
+  <div class="row"><button class="btn g" id="pReset">Reset progress</button></div>
+
+  <section class="colors clay" id="paint">
+    <h2>Change Pudding’s color</h2>
+    <p class="sub">Tap a blob to paint Pudding.</p>
+    <div class="blobs" id="blobs"></div>
+    <p class="sub" style="margin:18px 0 10px">Pudding's wardrobe: win stars to unlock hats!</p>
+    <div class="blobs" id="wardrobe" style="gap:10px"></div>
+  </section>
+
+  <footer>SHMK KID · Learn, count and play every day.</footer>
+</div>
+<dialog id="gm" aria-labelledby="gTitle"><div class="gh"><h3 id="gTitle"></h3><div class="row" style="margin:0"><button class="btn g" id="gRead" aria-pressed="false" aria-label="Read questions aloud">🗣️ Off</button><button class="btn g" id="gFav" aria-label="Add to favourites">☆</button><button class="btn t" id="gClose" aria-label="Close game">✕ Close</button></div></div><div id="gBody"></div></dialog>
+<dialog id="pm" aria-labelledby="pmT"><div class="gh"><h3 id="pmT">Who is playing?</h3><button class="btn t" id="pmClose">✕ Close</button></div><div id="pmBody"></div></dialog>
+<dialog id="brk" aria-labelledby="brkT"><h3 id="brkT">Time for a break! 🌳</h3><p>You have played for a while. Drink some water, look far away and stretch. A grown-up can add more time.</p><div class="row"><input type="password" id="brkPin" inputmode="numeric" maxlength="4" placeholder="Parent PIN" aria-label="Parent PIN" style="font:inherit;font-size:18px;padding:10px;width:150px;border:1px solid var(--line);background:var(--bg);color:var(--text)"><button class="btn" id="brkMore">Add 10 minutes</button></div></dialog>
+<div id="toast" role="status"></div>
+<script>
+const pet=document.getElementById('pet'),say=document.getElementById('say'),pokes=document.getElementById('pokes');
+const lines=['Boing!','Hehe, that tickles!','Again, again!','I love squishes!','Wheee!','You’re awesome!'];
+let n=0;
+pet.addEventListener('click',()=>{
+  pet.classList.remove('boing');void pet.offsetWidth;pet.classList.add('boing');
+  say.textContent=lines[n%lines.length];n++;pokes.textContent=n;
+});
+/* ---------- audio ---------- */
+let ac=null,soundOn=true;
+function ctx(){if(!ac){try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(ac&&ac.state==='suspended')ac.resume();return ac}
+function tone(f1,f2,dur,type){if(!soundOn)return;const c=ctx();if(!c)return;const o=c.createOscillator(),g=c.createGain(),t=c.currentTime;
+  o.type=type||'sine';o.frequency.setValueAtTime(f1,t);o.frequency.exponentialRampToValueAtTime(f2,t+dur);
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+dur+.05)}
+const boing=()=>{tone(180,520,.35,'sine');setTimeout(()=>tone(520,260,.25,'sine'),120)};
+const pop=()=>tone(700,1100,.12,'triangle');
+function speak(txt,onstart,onend){
+  if(!soundOn||!('speechSynthesis' in window)){onstart&&onstart();setTimeout(()=>onend&&onend(),900);return}
+  const u=new SpeechSynthesisUtterance(txt);u.rate=.85;u.pitch=1.3;u.lang='en-US';
+  u.onstart=()=>onstart&&onstart();u.onend=()=>onend&&onend();u.onerror=()=>onend&&onend();
+  speechSynthesis.speak(u)}
+function hush(){if('speechSynthesis' in window)speechSynthesis.cancel()}
+const snd=document.getElementById('snd');
+snd.addEventListener('click',()=>{soundOn=!soundOn;snd.innerHTML=soundOn?'🔊<span class="lbl"> Sound on</span>':'🔇<span class="lbl"> Sound off</span>';snd.setAttribute('aria-pressed',soundOn);if(!soundOn)hush();else pop()});
+pet.addEventListener('click',boing);
+document.getElementById('blobs').addEventListener('click',e=>{if(e.target.closest('.blob'))pop()});
+/* ---------- A to Z ---------- */
+const az=[['A','Apple','🍎'],['B','Ball','⚽'],['C','Cat','🐱'],['D','Dog','🐶'],['E','Elephant','🐘'],['F','Fish','🐟'],['G','Grapes','🍇'],['H','House','🏠'],['I','Ice cream','🍦'],['J','Juice','🧃'],['K','Kite','🪁'],['L','Lion','🦁'],['M','Moon','🌙'],['N','Nest','🪺'],['O','Orange','🍊'],['P','Pizza','🍕'],['Q','Queen','👑'],['R','Rainbow','🌈'],['S','Sun','☀️'],['T','Tree','🌳'],['U','Umbrella','☂️'],['V','Van','🚐'],['W','Whale','🐳'],['X','Xylophone','🎹'],['Y','Yo-yo','🪀'],['Z','Zebra','🦓']];
+const tc=['--g1','--g2','--g3','--g5','--accent','--g4'];
+const ag=document.getElementById('abc-grid'),tiles=[];let playing=false;
+function mark(i){tiles.forEach((t,j)=>t.classList.toggle('on',j===i))}
+function say1(i,after){const a=az[i];mark(i);pop();speak(a[0]+'. '+a[0]+' for '+a[1],null,()=>{after&&after()})}
+az.forEach((a,i)=>{
+  const b=document.createElement('button');b.className='tile clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';
+  b.setAttribute('aria-label',a[0]+' for '+a[1]);
+  b.innerHTML='<span class="L">'+a[0]+'</span><span class="e">'+a[2]+'</span><small>'+a[1]+'</small>';
+  b.addEventListener('click',()=>{playing=false;hush();say1(i)});
+  ag.appendChild(b);tiles.push(b)});
+document.getElementById('playAll').addEventListener('click',()=>{
+  hush();playing=true;let i=0;
+  (function next(){if(!playing||i>=az.length){playing=false;mark(-1);return}const k=i++;say1(k,()=>setTimeout(next,250))})()});
+document.getElementById('stopAll').addEventListener('click',()=>{playing=false;hush();mark(-1)});
+/* ---------- 1 to 100 ---------- */
+const ng=document.getElementById('nums-grid'),nt=[];let counting=false;
+function nmark(i){nt.forEach((t,j)=>t.classList.toggle('on',j===i))}
+function sayN(i,after){nmark(i);pop();const el=nt[i];if(counting&&el.scrollIntoView)el.scrollIntoView({block:'nearest',behavior:'smooth'});speak(String(i+1),null,()=>{after&&after()})}
+for(let i=0;i<100;i++){
+  const b=document.createElement('button');b.className='num clay';b.textContent=i+1;
+  b.style.backgroundColor='var('+tc[Math.floor(i/10)%tc.length]+')';b.setAttribute('aria-label','Number '+(i+1));
+  b.addEventListener('click',()=>{counting=false;hush();sayN(i)});
+  ng.appendChild(b);nt.push(b)}
+function runCount(step){
+  hush();counting=true;playing=false;mark(-1);let i=step-1;
+  (function next(){if(!counting||i>=100){counting=false;nmark(-1);return}const k=i;i+=step;sayN(k,()=>setTimeout(next,200))})()}
+document.getElementById('countAll').addEventListener('click',()=>runCount(1));
+document.getElementById('countTens').addEventListener('click',()=>runCount(10));
+document.getElementById('stopCount').addEventListener('click',()=>{counting=false;hush();nmark(-1)});
+/* ---------- tables ---------- */
+let tN=7,tMax=10,reading=false;const trows=document.getElementById('trows'),tBig=document.getElementById('tBig'),tRange=document.getElementById('tRange'),tNum=document.getElementById('tNum'),tLen=document.getElementById('tLen');let trEls=[];
+function tmark(i){trEls.forEach((t,j)=>t.classList.toggle('on',j===i))}
+function sayRow(i,after){tmark(i);pop();speak(tN+' times '+(i+1)+' is '+(tN*(i+1)),null,()=>{after&&after()})}
+function renderT(){
+  tBig.textContent=tN;tRange.value=tN;tNum.value=tN;trows.innerHTML='';trEls=[];
+  for(let i=0;i<tMax;i++){
+    const b=document.createElement('button');b.className='trow clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';
+    b.textContent=tN+' × '+(i+1)+' = '+(tN*(i+1));b.setAttribute('aria-label',tN+' times '+(i+1)+' is '+(tN*(i+1)));
+    b.addEventListener('click',()=>{reading=false;hush();sayRow(i)});trows.appendChild(b);trEls.push(b)}}
+function setT(v){v=Math.max(1,Math.min(100,parseInt(v)||1));reading=false;hush();tN=v;renderT()}
+document.getElementById('tPrev').addEventListener('click',()=>{pop();setT(tN-1)});
+document.getElementById('tNext').addEventListener('click',()=>{pop();setT(tN+1)});
+tRange.addEventListener('input',()=>setT(tRange.value));
+tNum.addEventListener('change',()=>setT(tNum.value));
+tLen.addEventListener('click',()=>{tMax=tMax===10?20:10;tLen.textContent='Up to '+tMax;reading=false;hush();renderT()});
+document.getElementById('tRead').addEventListener('click',()=>{
+  hush();counting=false;playing=false;reading=true;let i=0;
+  (function next(){if(!reading||i>=tMax){reading=false;tmark(-1);return}const k=i++;sayRow(k,()=>setTimeout(next,200))})()});
+document.getElementById('tStop').addEventListener('click',()=>{reading=false;hush();tmark(-1)});
+renderT();
+/* ---------- trigonometry ---------- */
+const fs=[
+['Sine','sin θ = P / H','sine theta equals perpendicular over hypotenuse'],
+['Cosine','cos θ = B / H','cosine theta equals base over hypotenuse'],
+['Tangent','tan θ = P / B','tangent theta equals perpendicular over base'],
+['Cosecant','cosec θ = 1 / sin θ = H / P','cosecant theta equals one over sine theta, which is hypotenuse over perpendicular'],
+['Secant','sec θ = 1 / cos θ = H / B','secant theta equals one over cosine theta, which is hypotenuse over base'],
+['Cotangent','cot θ = 1 / tan θ = B / P','cotangent theta equals one over tangent theta, which is base over perpendicular'],
+['Tan in terms of sin and cos','tan θ = sin θ / cos θ','tangent theta equals sine theta over cosine theta'],
+['Cot in terms of sin and cos','cot θ = cos θ / sin θ','cotangent theta equals cosine theta over sine theta'],
+['Pythagoras','H² = P² + B²','hypotenuse squared equals perpendicular squared plus base squared'],
+['Identity 1','sin²θ + cos²θ = 1','sine squared theta plus cosine squared theta equals one'],
+['Identity 2','1 + tan²θ = sec²θ','one plus tangent squared theta equals secant squared theta'],
+['Identity 3','1 + cot²θ = cosec²θ','one plus cotangent squared theta equals cosecant squared theta'],
+['Complementary angles','sin(90° − θ) = cos θ','sine of ninety degrees minus theta equals cosine theta'],
+['Complementary angles','cos(90° − θ) = sin θ','cosine of ninety degrees minus theta equals sine theta'],
+['Complementary angles','tan(90° − θ) = cot θ','tangent of ninety degrees minus theta equals cotangent theta'],
+['Negative angles','sin(−θ) = −sin θ','sine of minus theta equals minus sine theta'],
+['Negative angles','cos(−θ) = cos θ','cosine of minus theta equals cosine theta'],
+['Double angle','sin 2θ = 2 sin θ cos θ','sine two theta equals two sine theta cosine theta'],
+['Double angle','cos 2θ = cos²θ − sin²θ','cosine two theta equals cosine squared theta minus sine squared theta'],
+['Sum of angles','sin(A + B) = sin A cos B + cos A sin B','sine of A plus B equals sine A cosine B plus cosine A sine B'],
+['Sum of angles','cos(A + B) = cos A cos B − sin A sin B','cosine of A plus B equals cosine A cosine B minus sine A sine B']];
+const fg=document.getElementById('fgrid'),fEls=[];let fread=false;
+function fmark(i){fEls.forEach((t,j)=>t.classList.toggle('on',j===i))}
+function sayF(i,after){fmark(i);pop();speak(fs[i][2],null,()=>{after&&after()})}
+fs.forEach((f,i)=>{
+  const b=document.createElement('button');b.className='fm clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';
+  b.innerHTML='<small>'+f[0]+'</small><b>'+f[1]+'</b>';b.setAttribute('aria-label',f[2]);
+  b.addEventListener('click',()=>{fread=false;hush();sayF(i)});fg.appendChild(b);fEls.push(b)});
+document.getElementById('fRead').addEventListener('click',()=>{
+  hush();counting=false;playing=false;reading=false;fread=true;let i=0;
+  (function next(){if(!fread||i>=fs.length){fread=false;fmark(-1);return}const k=i++;if(fEls[k].scrollIntoView)fEls[k].scrollIntoView({block:'nearest',behavior:'smooth'});sayF(k,()=>setTimeout(next,250))})()});
+document.getElementById('fStop').addEventListener('click',()=>{fread=false;hush();fmark(-1)});
+/* ---------- shared formula cards ---------- */
+function toSp(s){return s.replace(/\|([^|]+)\|/g,'determinant of $1').replace(/⁻¹/g,' inverse ').replace(/ᵀ/g,' transpose ').replace(/²/g,' squared ').replace(/³/g,' cubed ').replace(/√/g,' square root of ').replace(/π/g,' pi ').replace(/λ/g,' lambda ').replace(/α/g,' alpha ').replace(/β/g,' beta ').replace(/×/g,' times ').replace(/≠/g,' is not equal to ').replace(/±/g,' plus or minus ').replace(/\+/g,' plus ').replace(/−/g,' minus ').replace(/=/g,' equals ').replace(/\//g,' over ').replace(/(\d)([a-zA-Z])/g,'$1 $2').replace(/\b[a-zA-Z]{2,3}\b/g,m=>/^(log|adj|and|for|the|not|of|is|to|by|row|pi)$/i.test(m)?m:m.split('').join(' ')).replace(/\s+/g,' ')}
+function mkF(gid,rid,sid,txt){
+  const data=txt.split('\n').filter(l=>l.trim()).map(l=>l.trim().split('~'));
+  const g=document.getElementById(gid),els=[];let on=false;
+  const mk=i=>els.forEach((t,j)=>t.classList.toggle('on',j===i));
+  const say=(i,after)=>{mk(i);pop();speak(data[i][2]||toSp(data[i][1]),null,()=>{after&&after()})};
+  data.forEach((f,i)=>{const b=document.createElement('button');b.className='fm clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';
+    b.innerHTML='<small>'+f[0]+'</small><b>'+f[1]+'</b>';b.setAttribute('aria-label',f[2]||toSp(f[1]));
+    b.addEventListener('click',()=>{on=false;hush();say(i)});g.appendChild(b);els.push(b)});
+  document.getElementById(rid).addEventListener('click',()=>{hush();counting=playing=reading=fread=false;on=true;let i=0;
+    (function nx(){if(!on||i>=data.length){on=false;mk(-1);return}const k=i++;if(els[k].scrollIntoView)els[k].scrollIntoView({block:'nearest',behavior:'smooth'});say(k,()=>setTimeout(nx,250))})()});
+  document.getElementById(sid).addEventListener('click',()=>{on=false;hush();mk(-1)});
+}
+mkF('agrid','aRead','aStop',`Square of a sum~(a + b)² = a² + 2ab + b²
+Square of a difference~(a − b)² = a² − 2ab + b²
+Difference of squares~a² − b² = (a + b)(a − b)
+Sum and difference~(a + b)² − (a − b)² = 4ab
+Sum and difference~(a + b)² + (a − b)² = 2(a² + b²)
+Find ab~ab = ((a + b)² − (a − b)²) / 4
+Find a² + b²~a² + b² = (a + b)² − 2ab
+Find a² + b² again~a² + b² = (a − b)² + 2ab
+Cube of a sum~(a + b)³ = a³ + 3a²b + 3ab² + b³
+Cube of a difference~(a − b)³ = a³ − 3a²b + 3ab² − b³
+Sum of cubes~a³ + b³ = (a + b)(a² − ab + b²)
+Difference of cubes~a³ − b³ = (a − b)(a² + ab + b²)
+Sum of cubes, short form~a³ + b³ = (a + b)³ − 3ab(a + b)
+Difference of cubes, short form~a³ − b³ = (a − b)³ + 3ab(a − b)
+Three terms~(a + b + c)² = a² + b² + c² + 2ab + 2bc + 2ca
+Three cubes~a³ + b³ + c³ − 3abc = (a + b + c)(a² + b² + c² − ab − bc − ca)
+Two binomials~(x + a)(x + b) = x² + (a + b)x + ab
+Same x~(x + a)(x − a) = x² − a²
+Binomial theorem~(a + b)ⁿ = nC0 aⁿ + nC1 aⁿ⁻¹b + … + nCn bⁿ~a plus b to the power n equals n C 0 a to the power n, plus n C 1 a to the power n minus 1 times b, and so on, up to n C n b to the power n`);
+mkF('mgrid','mRead','mStop',`Quadratic equation~x = (−b ± √(b² − 4ac)) / 2a
+Discriminant~D = b² − 4ac
+Sum of roots~α + β = −b / a
+Product of roots~αβ = c / a~alpha times beta equals c over a
+Product of powers~aᵐ × aⁿ = aᵐ⁺ⁿ~a to the power m times a to the power n equals a to the power m plus n
+Quotient of powers~aᵐ / aⁿ = aᵐ⁻ⁿ~a to the power m over a to the power n equals a to the power m minus n
+Power of a power~(aᵐ)ⁿ = aᵐⁿ~a to the power m, all to the power n, equals a to the power m times n
+Zero power~a⁰ = 1~a to the power zero equals one
+Negative power~a⁻ⁿ = 1 / aⁿ~a to the power minus n equals one over a to the power n
+Log of a product~log(mn) = log m + log n~log of m n equals log m plus log n
+Log of a quotient~log(m / n) = log m − log n~log of m over n equals log m minus log n
+Log of a power~log mⁿ = n × log m~log of m to the power n equals n times log m
+Change of base~logₐ b = log b / log a~log of b to the base a equals log b over log a
+Percentage~% = (Part / Whole) × 100~percentage equals part over whole times 100
+Profit~Profit = SP − CP
+Profit percent~Profit % = (Profit / CP) × 100~profit percent equals profit over C P times 100
+Loss~Loss = CP − SP
+Simple interest~SI = (P × R × T) / 100
+Compound interest~A = P(1 + R/100)ᵗ~amount equals P times 1 plus R over 100, all to the power T
+Speed~Speed = Distance / Time
+Average~Average = Total / Count
+AP, nth term~aₙ = a + (n − 1)d~n th term equals a plus n minus 1 times d
+AP, sum~Sₙ = (n/2)(2a + (n − 1)d)~sum of n terms equals n over 2 times, 2 a plus n minus 1 times d
+GP, nth term~aₙ = a × rⁿ⁻¹~n th term equals a times r to the power n minus 1
+GP, sum~Sₙ = a(rⁿ − 1) / (r − 1)~sum of n terms equals a times r to the power n minus 1, over r minus 1
+Square~A = a², P = 4a
+Rectangle~A = l × b, P = 2(l + b)
+Triangle~A = (1/2) × b × h
+Heron's formula~A = √(s(s − a)(s − b)(s − c))~area equals square root of s times s minus a times s minus b times s minus c
+Circle~A = πr², C = 2πr
+Trapezium~A = (1/2)(a + b)h
+Parallelogram~A = b × h
+Pythagoras~c² = a² + b²
+Cube~V = a³, SA = 6a²
+Cuboid~V = l × b × h, SA = 2(lb + bh + hl)
+Cylinder~V = πr²h, CSA = 2πrh
+Cone~V = (1/3)πr²h
+Sphere~V = (4/3)πr³, SA = 4πr²
+Distance between points~d = √((x₂ − x₁)² + (y₂ − y₁)²)~distance equals square root of x two minus x one, squared, plus y two minus y one, squared
+Slope~m = (y₂ − y₁) / (x₂ − x₁)~slope equals y two minus y one over x two minus x one
+Midpoint~((x₁ + x₂)/2, (y₁ + y₂)/2)~midpoint is x one plus x two over 2, and y one plus y two over 2
+Line~y = mx + c
+Derivative~d/dx (xⁿ) = n xⁿ⁻¹~d by d x of x to the power n equals n times x to the power n minus 1
+Integral~∫ xⁿ dx = xⁿ⁺¹ / (n + 1) + C~integral of x to the power n d x equals x to the power n plus 1 over n plus 1, plus C
+Permutation~nPr = n! / (n − r)!~n P r equals n factorial over n minus r factorial
+Combination~nCr = n! / (r!(n − r)!)~n C r equals n factorial over r factorial times n minus r factorial
+Probability~P(E) = Favourable / Total`);
+mkF('xgrid','xRead','xStop',`Order~m × n (m rows, n columns)~order m by n means m rows and n columns
+Addition~A + B = [aᵢⱼ + bᵢⱼ], same order~A plus B adds matching entries, and both matrices must have the same order
+Subtraction~A − B = A + (−B)
+Scalar multiple~kA = [k × aᵢⱼ]~k A multiplies every entry by k
+When AB exists~columns of A = rows of B~A B exists when the columns of A equal the rows of B
+Product entry~(AB)ᵢⱼ = row i of A × column j of B~entry i j of A B is row i of A times column j of B
+Not commutative~AB ≠ BA (usually)~A B is usually not equal to B A
+Associative~A(BC) = (AB)C
+Distributive~A(B + C) = AB + AC
+Identity~AI = IA = A
+Transpose of a transpose~(Aᵀ)ᵀ = A
+Transpose of a sum~(A + B)ᵀ = Aᵀ + Bᵀ
+Transpose of a scalar multiple~(kA)ᵀ = kAᵀ
+Transpose of a product~(AB)ᵀ = BᵀAᵀ
+Determinant 2×2~|A| = ad − bc, for A = [a b; c d]~determinant of A equals a d minus b c
+Determinant 3×3~|A| = a(ei − fh) − b(di − fg) + c(dh − eg)~determinant equals a times e i minus f h, minus b times d i minus f g, plus c times d h minus e g
+Determinant of a product~|AB| = |A| × |B|
+Determinant of a transpose~|Aᵀ| = |A|
+Determinant of a scalar multiple~|kA| = kⁿ|A|, A is n × n~determinant of k A equals k to the power n times determinant of A, where A is n by n
+Inverse~A⁻¹ = adj(A) / |A|, if |A| ≠ 0~A inverse equals adjoint of A over determinant of A, only if the determinant is not zero
+Inverse 2×2~A⁻¹ = (1 / (ad − bc)) [d −b; −c a]~A inverse equals one over a d minus b c, times the matrix d, minus b, minus c, a
+Adjoint~A × adj(A) = adj(A) × A = |A| × I~A times adjoint of A equals adjoint of A times A, which equals determinant of A times I
+Inverse of a product~(AB)⁻¹ = B⁻¹A⁻¹
+Inverse of an inverse~(A⁻¹)⁻¹ = A
+Symmetric matrix~Aᵀ = A
+Skew-symmetric matrix~Aᵀ = −A
+Orthogonal matrix~AAᵀ = I = AᵀA
+Trace~tr(A) = a₁₁ + a₂₂ + … + aₙₙ~trace of A equals the sum of the diagonal entries
+Cramer's rule~x = Dx / D, y = Dy / D
+Characteristic equation~|A − λI| = 0
+Eigenvalue~Av = λv`);
+const mi=['m1','m2','m3','m4'].map(id=>document.getElementById(id)),mo=document.getElementById('mout'),fmt=x=>Math.round(x*1000)/1000;
+function calcM(){const[a,b,c,d]=mi.map(i=>parseFloat(i.value)||0),det=a*d-b*c;
+  mo.innerHTML='Determinant = <b>'+fmt(det)+'</b><br>Transpose = [ '+a+' '+c+' ; '+b+' '+d+' ]<br>'+(det?'Inverse = [ '+fmt(d/det)+' '+fmt(-b/det)+' ; '+fmt(-c/det)+' '+fmt(a/det)+' ]':'No inverse, because the determinant is 0.')}
+mi.forEach(i=>i.addEventListener('input',calcM));calcM();
+mkF('pgrid','pRead','pStop',`Profit~Profit = SP − CP~profit equals selling price minus cost price
+Loss~Loss = CP − SP~loss equals cost price minus selling price
+Profit percent~Profit % = (Profit / CP) × 100~profit percent equals profit over cost price times 100
+Loss percent~Loss % = (Loss / CP) × 100~loss percent equals loss over cost price times 100
+Selling price with profit~SP = CP × (100 + Profit%) / 100~selling price equals cost price times 100 plus profit percent, over 100
+Selling price with loss~SP = CP × (100 − Loss%) / 100~selling price equals cost price times 100 minus loss percent, over 100
+Cost price from profit~CP = SP × 100 / (100 + Profit%)~cost price equals selling price times 100, over 100 plus profit percent
+Cost price from loss~CP = SP × 100 / (100 − Loss%)~cost price equals selling price times 100, over 100 minus loss percent
+Discount~Discount = MP − SP~discount equals marked price minus selling price
+Discount percent~Discount % = (Discount / MP) × 100~discount percent equals discount over marked price times 100
+Selling price after discount~SP = MP × (100 − Discount%) / 100~selling price equals marked price times 100 minus discount percent, over 100
+Two discounts in a row~Final discount % = a + b − ab / 100~final discount percent equals a plus b minus a b over 100
+Same price, x% profit and x% loss~Loss % = x² / 100~on two items sold at the same price, one at x percent profit and one at x percent loss, the overall loss percent equals x squared over 100
+GST amount~GST = (Price × GST%) / 100~G S T equals price times G S T percent, over 100
+Price with GST~Total = Price × (100 + GST%) / 100~total equals price times 100 plus G S T percent, over 100
+Price before GST~Price = Total × 100 / (100 + GST%)~price equals total times 100, over 100 plus G S T percent
+GST inside a total~GST = Total × GST% / (100 + GST%)~G S T equals total times G S T percent, over 100 plus G S T percent
+CGST and SGST~CGST = SGST = GST / 2, for a sale inside one state~Central G S T equals State G S T equals G S T divided by 2, for a sale inside one state
+IGST~IGST = CGST + SGST, for a sale between two states~Integrated G S T equals Central G S T plus State G S T, for a sale between two states
+Input tax credit~GST to pay = Output GST − Input GST~G S T to pay equals output G S T minus input G S T
+GST rates~0%, 5%, 18%, 40% (since 22 Sep 2025)~G S T rates are zero, five, eighteen and forty percent, since twenty second September twenty twenty five`);
+const cpI=document.getElementById('cp'),spI=document.getElementById('sp'),plO=document.getElementById('plOut'),gA=document.getElementById('gA'),gR=document.getElementById('gR'),gO=document.getElementById('gOut');
+function calcPL(){const cp=parseFloat(cpI.value)||0,sp=parseFloat(spI.value)||0,d=sp-cp,pc=cp?fmt(Math.abs(d)/cp*100)+'%':'-';
+  plO.innerHTML=d>0?'Profit = <b>'+fmt(d)+'</b><br>Profit % = <b>'+pc+'</b>':d<0?'Loss = <b>'+fmt(-d)+'</b><br>Loss % = <b>'+pc+'</b>':'No profit and no loss.'}
+function calcG(){const a=parseFloat(gA.value)||0,r=parseFloat(gR.value)||0,g=a*r/100;
+  gO.innerHTML='Add GST: GST = <b>'+fmt(g)+'</b> (CGST '+fmt(g/2)+' + SGST '+fmt(g/2)+')<br>Total = <b>'+fmt(a+g)+'</b><br>If '+a+' already has GST in it: price before GST = <b>'+fmt(a*100/(100+r))+'</b>, GST inside = <b>'+fmt(a*r/(100+r))+'</b>'}
+[cpI,spI].forEach(i=>i.addEventListener('input',calcPL));[gA,gR].forEach(i=>i.addEventListener('input',calcG));
+document.querySelectorAll('.gq').forEach(b=>b.addEventListener('click',()=>{gR.value=b.dataset.r;pop();calcG()}));
+calcPL();calcG();
+/* ---------- Hindi varnamala ---------- */
+function spHi(t,end){if(!soundOn||!('speechSynthesis' in window)){setTimeout(()=>end&&end(),900);return}
+  const u=new SpeechSynthesisUtterance(t);u.lang='hi-IN';u.rate=.8;u.pitch=1.2;u.onend=()=>end&&end();u.onerror=()=>end&&end();speechSynthesis.speak(u)}
+function mkH(gid,pid,sid,data){
+  const g=document.getElementById(gid),els=[];let on=false;
+  const mk=i=>els.forEach((t,j)=>t.classList.toggle('on',j===i));
+  const say=(i,after)=>{const d=data[i];mk(i);pop();spHi(d[1]?d[0]+' से '+d[1]:d[0],()=>{after&&after()})};
+  data.forEach((d,i)=>{const b=document.createElement('button');b.className='tile clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';
+    b.setAttribute('aria-label',d[1]?d[0]+' से '+d[1]:d[0]);
+    b.innerHTML='<span class="L">'+d[0]+'</span><span class="e">'+(d[2]||'✨')+'</span><small>'+(d[1]||'&nbsp;')+'</small>';
+    b.addEventListener('click',()=>{on=false;hush();say(i)});g.appendChild(b);els.push(b)});
+  document.getElementById(pid).addEventListener('click',()=>{hush();playing=counting=reading=fread=false;on=true;let i=0;
+    (function nx(){if(!on||i>=data.length){on=false;mk(-1);return}const k=i++;if(els[k].scrollIntoView)els[k].scrollIntoView({block:'nearest',behavior:'smooth'});say(k,()=>setTimeout(nx,250))})()});
+  document.getElementById(sid).addEventListener('click',()=>{on=false;hush();mk(-1)})}
+mkH('hgrid','hRead','hStop',[['क','कबूतर','🕊️'],['ख','खरगोश','🐰'],['ग','गमला','🪴'],['घ','घड़ी','⏰'],['ङ','',''],['च','चश्मा','👓'],['छ','छाता','☂️'],['ज','जहाज़','🚢'],['झ','झरना','🏞️'],['ञ','',''],['ट','टमाटर','🍅'],['ठ','ठेला','🛒'],['ड','डफली','🥁'],['ढ','ढक्कन','🥫'],['ण','',''],['त','तरबूज़','🍉'],['थ','थाली','🍽️'],['द','दवात','✒️'],['ध','धनुष','🏹'],['न','नल','🚰'],['प','पतंग','🪁'],['फ','फल','🍎'],['ब','बकरी','🐐'],['भ','भालू','🐻'],['म','मछली','🐟'],['य','यज्ञ','🔥'],['र','रेल','🚆'],['ल','लड्डू','🟡'],['व','वन','🌳'],['श','शेर','🦁'],['ष','षट्कोण','⬢'],['स','सपेरा','🐍'],['ह','हाथी','🐘'],['क्ष','क्षत्रिय','⚔️'],['त्र','त्रिशूल','🔱'],['ज्ञ','ज्ञानी','📚']]);
+mkH('vgrid','vRead','vStop',[['अ','अनार','🍎'],['आ','आम','🥭'],['इ','इमली','🌰'],['ई','ईख','🌾'],['उ','उल्लू','🦉'],['ऊ','ऊन','🧶'],['ऋ','ऋषि','🧘'],['ए','एक','1️⃣'],['ऐ','ऐनक','🕶️'],['ओ','ओस','💧'],['औ','औरत','👩'],['अं','अंगूर','🍇'],['अः','','']]);
+/* ---------- barakhadi ---------- */
+const cons=['क','ख','ग','घ','ङ','च','छ','ज','झ','ञ','ट','ठ','ड','ढ','ण','त','थ','द','ध','न','प','फ','ब','भ','म','य','र','ल','व','श','ष','स','ह','क्ष','त्र','ज्ञ'];
+const mat=['','ा','ि','ी','ु','ू','े','ै','ो','ौ','ं','ः'],vow=['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','अं','अः'];
+let bk='क',bOn=false,bEls=[];
+const bkChips=document.getElementById('bkChips'),bkGrid=document.getElementById('bkGrid'),bkTitle=document.getElementById('bkTitle'),chipEls=[];
+function bMark(i){bEls.forEach((t,j)=>t.classList.toggle('on',j===i))}
+function sayB(i,after){bMark(i);pop();spHi(bk+mat[i],()=>{after&&after()})}
+function renderB(){
+  bkTitle.textContent=bk+' की बारहखड़ी';bkGrid.innerHTML='';bEls=[];
+  mat.forEach((m,i)=>{const b=document.createElement('button');b.className='tile clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';b.setAttribute('aria-label',bk+m);
+    b.innerHTML='<span class="L">'+bk+m+'</span><small>'+vow[i]+'</small>';
+    b.addEventListener('click',()=>{bOn=false;hush();sayB(i)});bkGrid.appendChild(b);bEls.push(b)});
+  chipEls.forEach(c=>c.classList.toggle('on',c.textContent===bk))}
+cons.forEach(c=>{const b=document.createElement('button');b.className='num clay';b.style.backgroundColor='var(--surface)';b.textContent=c;b.setAttribute('aria-label',c+' की बारहखड़ी');
+  b.addEventListener('click',()=>{bOn=false;hush();bk=c;pop();renderB()});bkChips.appendChild(b);chipEls.push(b)});
+renderB();
+document.getElementById('bkRead').addEventListener('click',()=>{hush();playing=counting=reading=fread=false;bOn=true;let i=0;
+  (function nx(){if(!bOn||i>=12){bOn=false;bMark(-1);return}const k=i++;sayB(k,()=>setTimeout(nx,250))})()});
+document.getElementById('bkStop').addEventListener('click',()=>{bOn=false;hush();bMark(-1)});
+const bt=document.getElementById('bkTable');
+bt.innerHTML='<tr><th>व्यंजन</th>'+vow.map(v=>'<th>'+v+'</th>').join('')+'</tr>'+cons.map(c=>'<tr><th>'+c+'</th>'+mat.map(m=>'<td tabindex="0" role="button" data-t="'+c+m+'">'+c+m+'</td>').join('')+'</tr>').join('');
+bt.addEventListener('click',e=>{const t=e.target.closest('td[data-t]');if(t){bOn=false;hush();pop();spHi(t.dataset.t)}});
+bt.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const t=e.target.closest('td[data-t]');if(t){e.preventDefault();t.click()}}});
+/* ---------- games ---------- */
+const gm=document.getElementById('gm'),gBody=document.getElementById('gBody'),gTitle=document.getElementById('gTitle');let gT=[];
+let LV=2;const R=n=>Math.floor(Math.random()*n*(LV===1?.6:1)),sh=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const opts=(ans,pool,k=4)=>sh([ans,...sh(Array.from(new Set(pool)).filter(x=>x!==ans)).slice(0,k-1)]);
+function gStop(){gT.forEach(t=>{clearInterval(t);clearTimeout(t)});gT=[];hush()}
+document.getElementById('gClose').addEventListener('click',()=>gm.close());
+gm.addEventListener('close',gStop);
+const win=()=>{earn(1);[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,f,.25,'triangle'),i*120))},bad=()=>tone(220,140,.25,'square');
+const again=fn=>{gBody.insertAdjacentHTML('beforeend','<div style="text-align:center"><button class="btn" id="gAgain">Play again</button></div>');document.getElementById('gAgain').onclick=fn};
+function quiz(gen,n){n=n||[5,8,12][LV-1];let s=0,i=0;(function nx(){
+  if(i>=n){gBody.innerHTML='<div class="gwin">You got '+s+' out of '+n+'! ⭐</div>';rec(s,n);if(s>=n/2)win();again(()=>quiz(gen,n));return}
+  const g=gen();i++;
+  gBody.innerHTML='<div class="gscore">Question '+i+' of '+n+' · Score '+s+'</div><div class="gbig">'+g.big+'</div><div class="gq">'+g.q+'</div><div class="gopts">'+g.opts.map(o=>'<button class="gopt">'+o+'</button>').join('')+'</div>';
+  const bs=[...gBody.querySelectorAll('.gopt')];let done=false;if(readQ)sayQ(g);
+  bs.forEach(b=>b.onclick=()=>{if(done)return;done=true;const ok=b.textContent===String(g.ans);if(ok){s++;pop()}else bad();b.classList.add(ok?'ok':'bad');if(!ok)bs.forEach(x=>{if(x.textContent===String(g.ans))x.classList.add('ok')});gT.push(setTimeout(nx,ok?600:1300))})})()}
+const shapes=[['●','Circle'],['■','Square'],['▲','Triangle'],['★','Star'],['♥','Heart'],['◆','Diamond']],
+colors=[['Red','#e85f4a'],['Green','#3fbf79'],['Blue','#5fa8ff'],['Yellow','#f6d55c'],['Orange','#ffa63d'],['Purple','#b79cff'],['Pink','#ff7ec0']],
+animals=[['🐮','Moo'],['🐶','Woof'],['🐱','Meow'],['🦁','Roar'],['🐷','Oink'],['🐸','Ribbit'],['🐑','Baa'],['🐔','Cluck'],['🐴','Neigh'],['🐝','Buzz']],
+lands=[['🦁','Africa'],['🐼','Asia'],['🐨','Australia'],['🐧','Antarctica'],['🦙','South America'],['🦫','North America'],['🦔','Europe']],
+clocks=['🕐','🕑','🕒','🕓','🕔','🕕','🕖','🕗','🕘','🕙','🕚','🕛'];
+const Q={
+count:()=>{const n=1+R(10);return{big:'🍎'.repeat(n),q:'How many apples?',ans:n,opts:opts(n,[1,2,3,4,5,6,7,8,9,10])}},
+letter:()=>{const a=az[R(26)];return{big:a[2],q:'Which letter does '+a[1]+' start with?',ans:a[0],opts:opts(a[0],az.map(x=>x[0]))}},
+shape:()=>{const a=shapes[R(6)];return{big:a[0],q:'What shape is this?',ans:a[1],opts:opts(a[1],shapes.map(x=>x[1]))}},
+color:()=>{const a=colors[R(7)];return{big:'<span style="display:inline-block;width:90px;height:90px;border-radius:50%;background:'+a[1]+'"></span>',q:'Which color is this?',ans:a[0],opts:opts(a[0],colors.map(x=>x[0]))}},
+train:()=>{const st=1+R(10),d=1+R(3),m=1+R(3),sq=[0,1,2,3,4].map(k=>st+k*d),ans=sq[m];return{big:'🚂 '+sq.map((v,k)=>k===m?'?':v).join(', '),q:'Which number is missing?',ans:ans,opts:opts(ans,[ans-2*d,ans-d,ans+d,ans+2*d,ans+1,ans+2,ans+3].filter(x=>x>0))}},
+animal:()=>{const a=animals[R(10)];return{big:a[0],q:'What sound does it make?',ans:a[1],opts:opts(a[1],animals.map(x=>x[1]))}},
+clock:()=>{const h=1+R(12),t=h+' o’clock';return{big:clocks[h-1],q:'What time is it?',ans:t,opts:opts(t,[...Array(12)].map((_,k)=>(k+1)+' o’clock'))}},
+add:()=>{const a=1+R(9),b=1+R(9),s=a+b;return{big:a+' + '+b,q:'What is the answer?',ans:s,opts:opts(s,[s-2,s-1,s+1,s+2,s+3])}},
+explore:()=>{const a=lands[R(7)];return{big:a[0],q:'Which continent is its home?',ans:a[1],opts:opts(a[1],lands.map(x=>x[1]))}},
+hindi:()=>{const a=HI[R(HI.length)];return{big:a[2],q:a[1]+' किस अक्षर से शुरू होता है?',ans:a[0],opts:opts(a[0],HI.map(x=>x[0]))}},
+bigger:()=>{let a=1+R(99),b=1+R(99);while(a===b)b=1+R(99);const bg=R(2)===0,ans=bg?Math.max(a,b):Math.min(a,b);return{big:a+' or '+b,q:'Which number is '+(bg?'bigger':'smaller')+'?',ans:ans,opts:opts(ans,[a,b],2)}},
+table:()=>{const a=2+R(9),b=1+R(10),ans=a*b;return{big:a+' × '+b,q:'What is the answer?',ans:ans,opts:opts(ans,[ans-a,ans+a,ans-b,ans+b,ans+1,ans-1].filter(x=>x>0))}},
+opp:()=>{const p=OP[R(OP.length)],f=R(2),a=f?p[1]:p[0],ans=f?p[0]:p[1];return{big:a,q:'What is the opposite?',ans:ans,opts:opts(ans,OP.map(x=>x[f?0:1]))}},
+day:()=>{const i=R(7),af=R(2)===0,ans=DAYS[(i+(af?1:6))%7];return{big:'📅',q:'What day comes '+(af?'after ':'before ')+DAYS[i]+'?',ans:ans,opts:opts(ans,DAYS)}},
+eo:()=>{const n=1+R(50),ans=n%2?'Odd':'Even';return{big:n,q:'Is it even or odd?',ans:ans,opts:opts(ans,['Even','Odd'],2)}},
+take:()=>{const a=5+R(15),b=1+R(a-1),ans=a-b;return{big:a+' − '+b,q:'What is the answer?',ans:ans,opts:opts(ans,[ans-2,ans-1,ans+1,ans+2,ans+3].filter(x=>x>=0))}},
+miss:()=>{let a;do{a=az[R(26)]}while(a[1].includes(' '));const w=a[1].toUpperCase(),k=R(w.length),ans=w[k];return{big:a[2]+'<br>'+w.split('').map((c,j)=>j===k?'_':c).join(' '),q:'Which letter is missing?',ans:ans,opts:opts(ans,'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''))}},
+pl:()=>{const cp=(5+R(16))*10,d=(1+R(8))*5,p=R(2)===0,sp=p?cp+d:cp-d,ans=(p?'Profit':'Loss')+' ₹'+d;return{big:'CP ₹'+cp+' · SP ₹'+sp,q:'Profit or loss, and how much?',ans:ans,opts:opts(ans,['Profit ₹'+d,'Loss ₹'+d,'Profit ₹'+(d+5),'Loss ₹'+(d+5),'Profit ₹'+(d+10)])}},
+bigadd:()=>{const a=20+R(80),b=20+R(80),ans=a+b;return{big:a+' + '+b,q:'What is the answer?',ans:ans,opts:opts(ans,[ans-10,ans+10,ans-1,ans+1,ans+2,ans-2])}},
+bigsub:()=>{const a=50+R(50),b=10+R(40),ans=a-b;return{big:a+' − '+b,q:'What is the answer?',ans:ans,opts:opts(ans,[ans-10,ans+10,ans-1,ans+1,ans+2,ans-2])}},
+tablec:()=>{const a=6+R(15),b=2+R(11),ans=a*b;return{big:a+' × '+b,q:'What is the answer?',ans:ans,opts:opts(ans,[ans-a,ans+a,ans-b,ans+b,ans+10,ans-10].filter(x=>x>0))}},
+divide:()=>{const b=2+R(9),q=2+R(10),a=b*q;return{big:a+' ÷ '+b,q:'What is the answer?',ans:q,opts:opts(q,[q-2,q-1,q+1,q+2,q+3].filter(x=>x>0))}},
+percent:()=>{const p=[10,25,50][R(3)],base=[20,40,60,80,100,200][R(6)],ans=base*p/100;return{big:p+'% of '+base,q:'What is the answer?',ans:ans,opts:opts(ans,[ans+5,ans-5,ans+10,ans*2,ans+1,ans+2].filter(x=>x>0))}},
+half:()=>{const t=R(3);let n,ans,w;if(t===0){n=2*(5+R(46));ans=n/2;w='Half of '+n}else if(t===1){n=5+R(95);ans=n*2;w='Double '+n}else{n=4*(2+R(20));ans=n/4;w='Quarter of '+n}return{big:w,q:'What is the answer?',ans:ans,opts:opts(ans,[ans+1,ans+2,ans-1,ans-2,ans+5,ans*2].filter(x=>x>0))}},
+pattern:()=>{const t=R(3);let sq,ans;if(t===0){const s=2+R(8),d=2+R(8);sq=[s,s+d,s+2*d,s+3*d];ans=s+4*d}else if(t===1){const s=1+R(3);sq=[s,2*s,4*s,8*s];ans=16*s}else{const k=1+R(5);sq=[k*k,(k+1)*(k+1),(k+2)*(k+2),(k+3)*(k+3)];ans=(k+4)*(k+4)}return{big:sq.join(', ')+', ?',q:'What number comes next?',ans:ans,opts:opts(ans,[ans-3,ans-2,ans-1,ans+1,ans+2,ans+3])}},
+roman:()=>{const n=1+R(20);return{big:R20[n-1],q:'Which number is this?',ans:n,opts:opts(n,[n-2,n-1,n+1,n+2,n+3].filter(x=>x>0))}},
+algebra:()=>{const t=R(3);let w,ans;if(t===0){const a=2+R(15);ans=1+R(12);w='x + '+a+' = '+(ans+a)}else if(t===1){const a=1+R(10),y=1+R(12);ans=y+a;w='x − '+a+' = '+y}else{const a=2+R(8);ans=1+R(12);w=a+' × x = '+(a*ans)}return{big:w,q:'What is x?',ans:ans,opts:opts(ans,[ans-2,ans-1,ans+1,ans+2,ans+3].filter(v=>v>0))}},
+change:()=>{const price=(1+R(18))*5,ans=100-price;return{big:'₹100 note · Price ₹'+price,q:'How much change do you get?',ans:'₹'+ans,opts:opts('₹'+ans,[ans-10,ans+10,ans-5,ans+5,ans+15].filter(x=>x>0).map(x=>'₹'+x))}},
+area:()=>{const l=2+R(9),b=2+R(9),ar=R(2)===0,ans=ar?l*b:2*(l+b);return{big:'📐 '+l+' × '+b,q:'What is the '+(ar?'area':'perimeter')+'?',ans:ans,opts:opts(ans,[l*b,2*(l+b),l+b,l*b+l,ans+2,ans-2].filter(x=>x>0))}},
+cap:()=>{const a=CAP[R(CAP.length)];return{big:'🗺️',q:'What is the capital of '+a[0]+'?',ans:a[1],opts:opts(a[1],CAP.map(x=>x[1]))}},
+bkq:()=>{const c=['क','ख','ग','च','त','प','म','र','स','ह'][R(10)],k=1+R(11),ans=c+mat[k];return{big:c+' + '+vow[k],q:'कौन सा रूप बनेगा?',ans:ans,opts:opts(ans,mat.map(m=>c+m))}}};
+function order(items,tip){let nx=0;gBody.innerHTML='<div class="gq">'+tip+'</div><div class="gscore" id="gs">0 of '+items.length+'</div><div class="gopts" id="go" style="grid-template-columns:repeat(4,1fr)"></div>';
+  const go=document.getElementById('go'),gs=document.getElementById('gs');
+  sh(items.map((x,i)=>i)).forEach(i=>{const b=document.createElement('button');b.className='gopt';b.innerHTML=items[i].t;b.style.background=items[i].bg;b.style.color='#17362b';
+    b.onclick=()=>{if(b.disabled)return;if(i===nx){nx++;b.disabled=true;b.style.opacity=.35;pop();gs.textContent=nx+' of '+items.length;if(nx===items.length){win();gBody.insertAdjacentHTML('beforeend','<div class="gwin">You did it! 🎉</div>');again(()=>order(items,tip))}}else bad()};go.appendChild(b)})}
+const frog=()=>order([1,2,3,4,5,6,7,8].map(n=>({t:'🪷 '+n,bg:'#bfeacb'})),'Help the frog 🐸 hop from pad 1 to 8, in order!');
+const rainbow=()=>order(['#e85f4a','#ffa63d','#ffe45c','#55e58f','#5fa8ff','#b79cff'].map(c=>({t:'&nbsp;',bg:c})),'Tap the colors in rainbow order: red, orange, yellow, green, blue, purple');
+function memory(big){const em=['🍎','🍌','🍇','🍓','🍊','🍉','🍍','🥝'].concat(big===true?['🥭','🍒','🍑','🍋']:[]);let open=[],mv=0,found=0,lock=false;
+  gBody.innerHTML='<div class="gscore" id="gs">Moves: 0</div><div class="gcards" id="gc"></div>';
+  const gc=document.getElementById('gc'),gs=document.getElementById('gs');
+  sh([...em,...em]).forEach(e=>{const b=document.createElement('button');b.className='gcard';b.textContent=e;b.setAttribute('aria-label','Card');
+    b.onclick=()=>{if(lock||b.classList.contains('up')||b.classList.contains('done'))return;b.classList.add('up');pop();open.push(b);
+      if(open.length===2){mv++;gs.textContent='Moves: '+mv;const[a,c]=open;
+        if(a.textContent===c.textContent){a.classList.replace('up','done');c.classList.replace('up','done');open=[];found++;if(found===em.length){win();gBody.insertAdjacentHTML('beforeend','<div class="gwin">All matched in '+mv+' moves! 🎉</div>');again(()=>memory(big===true))}}
+        else{lock=true;gT.push(setTimeout(()=>{a.classList.remove('up');c.classList.remove('up');open=[];lock=false},800))}}};
+    gc.appendChild(b)})}
+function pads(){const n=[['🥁',262],['🎵',294],['🎶',330],['🔔',349],['🎹',392],['🎺',440],['🎸',494],['🎷',523]];
+  gBody.innerHTML='<div class="gq">Tap the pads to make music!</div><div class="gpads" id="gp"></div>';
+  n.forEach((x,i)=>{const b=document.createElement('button');b.className='gpad';b.textContent=x[0];b.style.background='var('+tc[i%tc.length]+')';b.onclick=()=>tone(x[1],x[1],.5,'triangle');document.getElementById('gp').appendChild(b)})}
+function targets(kind){let s=0,t=[30,20,15][LV-1];const stars=kind==='star';
+  gBody.innerHTML='<div class="gscore" id="gs"></div><div class="gq">'+(stars?'Catch the stars! ⭐':'Pop only the green balloons!')+'</div><div class="gplay" id="gpl"></div>';
+  const gs=document.getElementById('gs'),pl=document.getElementById('gpl'),upd=()=>gs.textContent='Time: '+t+'s · Score: '+s;upd();
+  const sp=setInterval(()=>{if(t<=0)return;const b=document.createElement('button');b.className='gpop'+(stars?'':' bal');const green=!stars&&Math.random()<.5;
+    if(stars){b.textContent='⭐';b.setAttribute('aria-label','Star')}else{b.style.background=green?'#3fbf79':['#e85f4a','#ffa63d','#ffe45c','#5fa8ff','#b79cff'][R(5)];b.setAttribute('aria-label',green?'Green balloon':'Other balloon')}
+    b.style.left=R(Math.max(10,pl.clientWidth-60))+'px';b.style.top=R(240)+'px';
+    b.onclick=()=>{if(stars||green){s++;pop()}else{s=Math.max(0,s-1);bad()}b.remove();upd()};pl.appendChild(b);gT.push(setTimeout(()=>b.remove(),1500))},650);
+  const tm=setInterval(()=>{t--;upd();if(t<=0){clearInterval(sp);clearInterval(tm);pl.innerHTML='';gBody.insertAdjacentHTML('beforeend','<div class="gwin">Time is up! Score: '+s+' 🎉</div>');win();again(()=>targets(kind))}},1000);
+  gT.push(sp,tm)}
+function odd(){const P=[['🍎','🍅'],['🐶','🐺'],['🌞','🌝'],['🍋','🍊'],['🐱','🐯'],['🐸','🐢'],['🍓','🍒'],['🐰','🐭']];let r=0,s=0;
+  (function nx(){if(r>=8){gBody.innerHTML='<div class="gwin">You found '+s+' out of 8! ⭐</div>';if(s>=4)win();again(odd);return}
+    const p=P[R(P.length)],o=R(16);r++;let dn=false;
+    gBody.innerHTML='<div class="gscore">Round '+r+' of 8 · Score '+s+'</div><div class="gq">Tap the one that is different</div><div class="gopts" style="grid-template-columns:repeat(4,1fr)">'+[...Array(16)].map((_,k)=>'<button class="gopt" data-k="'+k+'" style="font-size:34px">'+(k===o?p[1]:p[0])+'</button>').join('')+'</div>';
+    gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{if(dn)return;dn=true;const ok=+b.dataset.k===o;if(ok){s++;pop()}else bad();gT.push(setTimeout(nx,ok?300:700))})})()}
+function grow(){const S=['🌰','🌱','🌿','🪴','🌳','🌸'];let st=0;(function show(){
+  gBody.innerHTML='<div class="gbig">'+S[st]+'</div><div class="gbar"><i style="width:'+st*20+'%"></i></div>'+(st<5?'<div class="gq">Water the seed to help it grow!</div><div style="text-align:center"><button class="btn" id="gW">💧 Water</button></div>':'<div class="gwin">Your plant is fully grown! 🎉</div>');
+  if(st<5)document.getElementById('gW').onclick=()=>{st++;pop();if(st===5)win();show()};else again(grow)})()}
+function race(){const rs=[['🐢',0],['🐰',0],['🐻',0]];const draw=()=>{const fin=rs.every(r=>r[1]>=100);
+  gBody.innerHTML='<div class="gq">Tap Go! Everyone moves a little, and everyone wins.</div>'+rs.map(r=>'<div style="font-size:30px">'+r[0]+'</div><div class="gbar"><i style="width:'+Math.min(100,r[1])+'%"></i></div>').join('')+(fin?'<div class="gwin">Everyone won! 🏆</div>':'<div style="text-align:center"><button class="btn" id="gGo">Go! 🐾</button></div>');
+  if(fin){win();again(race)}else document.getElementById('gGo').onclick=()=>{rs.forEach(r=>r[1]+=6+R(10));pop();draw()}};draw()}
+function town(){const B=['🏠','🏢','🌳','🌷','🚗','⛲','🏫','🌞'];let t=[];const draw=()=>{
+  gBody.innerHTML='<div class="gq">Build your own town!</div><div class="gtown">'+(t.join('')||'Tap a block to add it')+'</div><div class="gopts" style="grid-template-columns:repeat(4,1fr)">'+B.map(b=>'<button class="gopt" style="font-size:30px">'+b+'</button>').join('')+'</div><div style="text-align:center;margin-top:12px"><button class="btn t" id="gClr">Clear town</button></div>';
+  gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{if(t.length<40){t.push(b.textContent);pop();draw()}});document.getElementById('gClr').onclick=()=>{t=[];draw()}};draw()}
+function story(){const S=[['The Sleepy Frog','Fred the frog was very sleepy. He hopped onto a big green leaf, yawned, and said, Good night, pond! Then he counted one, two, three stars and fell fast asleep.'],['The Rainbow Cake','Mia baked a cake with seven colors: red, orange, yellow, green, blue, indigo and violet. Everybody shared a slice, and everybody smiled.'],['The Brave Turtle','Tilly the turtle was slow, but she was brave. She walked and walked, and she crossed the whole garden, one little step at a time.']];let i=0;(function show(){
+  gBody.innerHTML='<div class="gq">'+S[i][0]+'</div><p class="gstory">'+S[i][1]+'</p><div class="row"><button class="btn" id="sRead">🔊 Read to me</button><button class="btn t" id="sStop">⏹ Stop</button><button class="btn g" id="sNext">Next story ▶</button></div>';
+  document.getElementById('sRead').onclick=()=>{hush();speak(S[i][1])};document.getElementById('sStop').onclick=hush;document.getElementById('sNext').onclick=()=>{hush();i=(i+1)%S.length;show()}})()}
+const HI=[['क','कबूतर','🕊️'],['ख','खरगोश','🐰'],['ग','गमला','🪴'],['घ','घड़ी','⏰'],['च','चश्मा','👓'],['छ','छाता','☂️'],['ज','जहाज़','🚢'],['ट','टमाटर','🍅'],['त','तरबूज़','🍉'],['न','नल','🚰'],['प','पतंग','🪁'],['ब','बकरी','🐐'],['भ','भालू','🐻'],['म','मछली','🐟'],['श','शेर','🦁'],['स','सपेरा','🐍'],['ह','हाथी','🐘']],
+OP=[['Big','Small'],['Hot','Cold'],['Up','Down'],['Day','Night'],['Happy','Sad'],['Fast','Slow'],['Open','Closed'],['Full','Empty'],['Hard','Soft'],['Old','New'],['Light','Dark'],['Wet','Dry']],
+DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+function mole(){let s=0,t=[30,20,15][LV-1],up=-1;
+  gBody.innerHTML='<div class="gscore" id="gs"></div><div class="gq">Tap the 🐹 when it pops up!</div><div class="gopts" id="gc" style="grid-template-columns:repeat(3,1fr)"></div>';
+  const gs=document.getElementById('gs'),gc=document.getElementById('gc'),upd=()=>gs.textContent='Time: '+t+'s · Score: '+s;upd();
+  const cells=[...Array(9)].map((_,k)=>{const b=document.createElement('button');b.className='gopt';b.style.fontSize='40px';b.style.minHeight='84px';b.textContent='🕳️';b.setAttribute('aria-label','Hole '+(k+1));
+    b.onclick=()=>{if(k===up){s++;pop();up=-1;b.textContent='🕳️';upd()}else bad()};gc.appendChild(b);return b});
+  const mv=setInterval(()=>{if(up>=0)cells[up].textContent='🕳️';up=R(9);cells[up].textContent='🐹'},800);
+  const tm=setInterval(()=>{t--;upd();if(t<=0){clearInterval(mv);clearInterval(tm);if(up>=0)cells[up].textContent='🕳️';up=-1;gBody.insertAdjacentHTML('beforeend','<div class="gwin">Time is up! Score: '+s+' 🎉</div>');win();again(mole)}},1000);gT.push(mv,tm)}
+function simon(){const cols=['#e85f4a','#ffe45c','#3fbf79','#5fa8ff'],fr=[262,330,392,523];let seq=[],pos=0,lock=true;
+  gBody.innerHTML='<div class="gscore" id="gs">Watch, then repeat!</div><div class="gopts" id="gsp"></div>';
+  const gs=document.getElementById('gs'),gsp=document.getElementById('gsp');
+  const bs=cols.map((c,k)=>{const b=document.createElement('button');b.className='gopt';b.style.background=c;b.style.minHeight='96px';b.style.opacity='.55';b.setAttribute('aria-label','Pad '+(k+1));
+    b.onclick=()=>{if(lock)return;flash(k);if(k===seq[pos]){pos++;if(pos===seq.length){lock=true;gs.textContent='Great! Next round...';gT.push(setTimeout(next,900))}}else{bad();lock=true;gBody.insertAdjacentHTML('beforeend','<div class="gwin">You reached round '+seq.length+'!</div>');again(simon)}};gsp.appendChild(b);return b});
+  const flash=k=>{bs[k].style.opacity='1';tone(fr[k],fr[k],.35,'triangle');gT.push(setTimeout(()=>bs[k].style.opacity='.55',350))};
+  const next=()=>{seq.push(R(4));pos=0;lock=true;gs.textContent='Round '+seq.length+': watch...';seq.forEach((k,i)=>gT.push(setTimeout(()=>flash(k),600+i*600)));gT.push(setTimeout(()=>{lock=false;gs.textContent='Your turn!'},600+seq.length*600))};
+  next()}
+function ttt(){let b=Array(9).fill(''),over=false;const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]],w3=m=>L.some(l=>l.every(i=>b[i]===m));
+  const draw=msg=>{gBody.innerHTML='<div class="gq">'+(msg||'You are ❌. Tap a square!')+'</div><div class="gopts" style="grid-template-columns:repeat(3,1fr)">'+b.map((v,i)=>'<button class="gopt" data-i="'+i+'" aria-label="Square '+(i+1)+'" style="font-size:40px;min-height:84px">'+(v==='X'?'❌':v==='O'?'⭕':'')+'</button>').join('')+'</div>';
+    gBody.querySelectorAll('.gopt').forEach(x=>x.onclick=()=>{const i=+x.dataset.i;if(over||b[i])return;b[i]='X';pop();
+      if(w3('X')){over=true;win();draw('You win! 🎉');again(ttt);return}if(!b.includes('')){over=true;draw('A draw!');again(ttt);return}
+      const e=b.map((v,k)=>v?-1:k).filter(k=>k>=0);let m=null;for(const mk of['O','X']){for(const k of e){b[k]=mk;if(w3(mk))m=k;b[k]=''}if(m!==null)break}
+      if(m===null)m=b[4]===''?4:e[R(e.length)];b[m]='O';
+      if(w3('O')){over=true;bad();draw('The computer wins! Try again.');again(ttt);return}if(!b.includes('')){over=true;draw('A draw!');again(ttt);return}draw()})};draw()}
+function guess(){const n=1+R(100);let c=0;
+  gBody.innerHTML='<div class="gq">I am thinking of a number from 1 to 100.</div><div class="gscore" id="gs">Guesses: 0</div><div style="text-align:center"><input type="number" id="gi" min="1" max="100" aria-label="Your guess" style="font:inherit;font-size:24px;width:110px;padding:10px;text-align:center;border:1px solid var(--line);background:var(--bg);color:var(--text)"> <button class="btn" id="gb">Guess</button></div><div class="gwin" id="gr"></div>';
+  const gi=document.getElementById('gi'),gr=document.getElementById('gr'),gs=document.getElementById('gs');
+  const go=()=>{const v=parseInt(gi.value);if(!v||v<1||v>100){gr.textContent='Type a number from 1 to 100';return}c++;gs.textContent='Guesses: '+c;
+    if(v===n){gr.textContent='Yes! It was '+n+'! 🎉';win();again(guess)}else{gr.textContent=v<n?'Too low. Try a bigger number.':'Too high. Try a smaller number.';pop()}gi.value='';gi.focus()};
+  document.getElementById('gb').onclick=go;gi.onkeydown=e=>{if(e.key==='Enter')go()};gi.focus()}
+const spell=()=>{const W=[['CAT','🐱'],['DOG','🐶'],['SUN','☀️'],['BUS','🚌'],['PIG','🐷'],['HEN','🐔'],['CUP','☕'],['BEE','🐝'],['FISH','🐟'],['FROG','🐸'],['MOON','🌙'],['TREE','🌳']],w=W[R(W.length)];order(w[0].split('').map(l=>({t:l,bg:'var(--tint)'})),'Spell the word: '+w[1])};
+const CAP=[['India','New Delhi'],['Maharashtra','Mumbai'],['Rajasthan','Jaipur'],['Uttar Pradesh','Lucknow'],['Gujarat','Gandhinagar'],['West Bengal','Kolkata'],['Tamil Nadu','Chennai'],['Karnataka','Bengaluru'],['Punjab','Chandigarh'],['Bihar','Patna'],['Madhya Pradesh','Bhopal'],['Kerala','Thiruvananthapuram'],['Assam','Dispur'],['Odisha','Bhubaneswar'],['France','Paris'],['Japan','Tokyo'],['Australia','Canberra'],['Egypt','Cairo']],
+R20=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'];
+const spellHard=()=>{const W=[['APPLE','🍎'],['TIGER','🐯'],['ZEBRA','🦓'],['MANGO','🥭'],['PLANET','🪐'],['ROCKET','🚀'],['BANANA','🍌'],['RAINBOW','🌈'],['PENGUIN','🐧'],['DOLPHIN','🐬'],['ELEPHANT','🐘'],['BUTTERFLY','🦋']],w=W[R(W.length)];order(w[0].split('').map(l=>({t:l,bg:'var(--tint)'})),'Spell the word: '+w[1])};
+function sudoku(){const base=[[1,2,3,4],[3,4,1,2],[2,1,4,3],[4,3,2,1]],p=sh([1,2,3,4]),sol=base.map(r=>r.map(v=>p[v-1])),g=sol.map(r=>r.slice());
+  sh([...Array(16).keys()]).slice(0,7).forEach(i=>{g[Math.floor(i/4)][i%4]=0});
+  const given=g.map(r=>r.map(v=>v>0));let sel=-1;
+  const ok=()=>{const st=a=>!a.includes(0)&&new Set(a).size===4;for(let i=0;i<4;i++){if(!st(g[i])||!st(g.map(r=>r[i])))return false}for(let r=0;r<4;r+=2)for(let c=0;c<4;c+=2)if(!st([g[r][c],g[r][c+1],g[r+1][c],g[r+1][c+1]]))return false;return true};
+  const draw=()=>{gBody.innerHTML='<div class="gq">Fill every row, column and 2×2 box with 1, 2, 3 and 4. Tap a square, then a number.</div><div class="gopts" style="grid-template-columns:repeat(4,1fr);max-width:360px;margin:auto">'+g.flat().map((v,i)=>'<button class="gopt" data-i="'+i+'" aria-label="Square '+(i+1)+'" style="font-size:28px;min-height:64px'+(given[Math.floor(i/4)][i%4]?';background:var(--tint)':'')+(i===sel?';outline:3px solid var(--ring)':'')+'">'+(v||'')+'</button>').join('')+'</div><div class="row" style="justify-content:center;margin-top:14px">'+[1,2,3,4].map(n=>'<button class="btn g gn" data-n="'+n+'">'+n+'</button>').join('')+'<button class="btn t gn" data-n="0">Clear</button></div>';
+    gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(!given[Math.floor(i/4)][i%4]){sel=i;draw()}});
+    gBody.querySelectorAll('.gn').forEach(b=>b.onclick=()=>{if(sel<0)return;g[Math.floor(sel/4)][sel%4]=+b.dataset.n;pop();if(ok()){gBody.innerHTML='<div class="gwin">Solved! 🎉</div>';win();again(sudoku)}else draw()})};draw()}
+function speed(){let s=0,t=[40,30,20][LV-1],a=0,b=0,op=0;
+  gBody.innerHTML='<div class="gscore" id="gs"></div><div class="gbig" id="gqq"></div><div style="text-align:center"><input type="number" id="gi" aria-label="Your answer" style="font:inherit;font-size:28px;width:130px;padding:10px;text-align:center;border:1px solid var(--line);background:var(--bg);color:var(--text)"> <button class="btn" id="gb">OK</button></div>';
+  const gs=document.getElementById('gs'),gqq=document.getElementById('gqq'),gi=document.getElementById('gi'),upd=()=>gs.textContent='Time: '+t+'s · Score: '+s;
+  const nq=()=>{op=R(3);a=2+R(10);b=2+R(10);if(op===1&&b>a){const x=a;a=b;b=x}gqq.textContent=a+(op===0?' + ':op===1?' − ':' × ')+b};
+  const go=()=>{if(t<=0)return;const ans=op===0?a+b:op===1?a-b:a*b;if(parseInt(gi.value)===ans){s++;pop()}else if(gi.value!=='')bad();gi.value='';nq();upd();gi.focus()};
+  document.getElementById('gb').onclick=go;gi.onkeydown=e=>{if(e.key==='Enter')go()};nq();upd();gi.focus();
+  const tm=setInterval(()=>{t--;upd();if(t<=0){clearInterval(tm);gi.disabled=true;gBody.insertAdjacentHTML('beforeend','<div class="gwin">Time is up! Score: '+s+' 🎉</div>');win();again(speed)}},1000);gT.push(tm)}
+/* ---------- progress, stars, hats ---------- */
+let PX=(()=>{try{return localStorage.getItem('pp_cur')||''}catch(e){return ''}})();
+const store={g:(k,d)=>{try{const v=localStorage.getItem('pp_'+PX+k);return v===null?d:JSON.parse(v)}catch(e){return d}},s:(k,v)=>{try{localStorage.setItem('pp_'+PX+k,JSON.stringify(v))}catch(e){}}};
+let stars=store.g('stars',0),fv=store.g('fav',[]),gst=store.g('stat',{}),hatSel=store.g('hat',''),msgT;
+const starC=document.getElementById('starC'),gFav=document.getElementById('gFav');starC.textContent='⭐ '+stars;
+function note(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(msgT);msgT=setTimeout(()=>t.classList.remove('on'),2200)}
+function earn(n){stars+=n;store.s('stars',stars);starC.textContent='⭐ '+stars;if([5,10,25,50,100,200,500].includes(stars))note('🏅 Badge unlocked: '+stars+' stars!');renderWard()}
+function rec(s,n){const e=gst[curG];if(!e)return;const pc=Math.round(s/n*100);if(e.b===undefined||pc>e.b)e.b=pc;store.s('stat',gst)}
+let curG=-1;
+const hatEl=document.createElement('span');hatEl.className='hat';hatEl.setAttribute('aria-hidden','true');hatEl.textContent=hatSel;pet.appendChild(hatEl);
+const HATS=[['No hat','',0],['🎩','🎩',5],['🎀','🎀',10],['🌸','🌸',12],['👑','👑',15],['🎓','🎓',20],['⭐','⭐',30]];
+function renderWard(){const w=document.getElementById('wardrobe');if(!w)return;w.innerHTML='';HATS.forEach(h=>{const b=document.createElement('button');b.className='btn g';const lock=stars<h[2];b.textContent=h[0]+(lock?' 🔒 '+h[2]+'⭐':'');b.onclick=()=>{if(lock){note('Win '+(h[2]-stars)+' more stars to unlock this!');return}hatSel=h[1];hatEl.textContent=hatSel;store.s('hat',hatSel);pop()};w.appendChild(b)})}
+renderWard();
+/* ---------- learning sections ---------- */
+function mkT(gid,pid,sid,txt,lang,fs){
+  const data=txt.split('\n').filter(l=>l.trim()).map(l=>l.trim().split('~'));
+  const g=document.getElementById(gid),els=[];let on=false;const sp=(t,end)=>lang==='hi'?spHi(t,end):speak(t,null,end);
+  const mk=i=>els.forEach((t,j)=>t.classList.toggle('on',j===i));
+  const say=(i,after)=>{mk(i);pop();sp(data[i][3]||data[i][0],()=>{after&&after()})};
+  data.forEach((d,i)=>{const b=document.createElement('button');b.className='tile clay';b.style.backgroundColor='var('+tc[i%tc.length]+')';b.setAttribute('aria-label',d[0]+' '+(d[1]||''));
+    b.innerHTML='<span class="L" style="font-size:'+(fs||26)+'px">'+d[0]+'</span><span class="e">'+(d[2]||'')+'</span><small>'+(d[1]||'')+'</small>';
+    b.addEventListener('click',()=>{on=false;hush();say(i)});g.appendChild(b);els.push(b)});
+  document.getElementById(pid).addEventListener('click',()=>{hush();playing=counting=reading=fread=false;on=true;let i=0;
+    (function nx(){if(!on||i>=data.length){on=false;mk(-1);return}const k=i++;if(els[k].scrollIntoView)els[k].scrollIntoView({block:'nearest',behavior:'smooth'});say(k,()=>setTimeout(nx,250))})()});
+  document.getElementById(sid).addEventListener('click',()=>{on=false;hush();mk(-1)})}
+const HW='एक,दो,तीन,चार,पाँच,छह,सात,आठ,नौ,दस,ग्यारह,बारह,तेरह,चौदह,पंद्रह,सोलह,सत्रह,अठारह,उन्नीस,बीस,इक्कीस,बाईस,तेईस,चौबीस,पच्चीस,छब्बीस,सत्ताईस,अट्ठाईस,उनतीस,तीस,इकतीस,बत्तीस,तैंतीस,चौंतीस,पैंतीस,छत्तीस,सैंतीस,अड़तीस,उनतालीस,चालीस,इकतालीस,बयालीस,तैंतालीस,चौवालीस,पैंतालीस,छियालीस,सैंतालीस,अड़तालीस,उनचास,पचास,इक्यावन,बावन,तिरपन,चौवन,पचपन,छप्पन,सत्तावन,अट्ठावन,उनसठ,साठ,इकसठ,बासठ,तिरसठ,चौंसठ,पैंसठ,छियासठ,सड़सठ,अड़सठ,उनहत्तर,सत्तर,इकहत्तर,बहत्तर,तिहत्तर,चौहत्तर,पचहत्तर,छिहत्तर,सतहत्तर,अठहत्तर,उन्यासी,अस्सी,इक्यासी,बयासी,तिरासी,चौरासी,पचासी,छियासी,सत्तासी,अट्ठासी,नवासी,नब्बे,इक्यानवे,बानवे,तिरानवे,चौरानवे,पंचानवे,छियानवे,सत्तानवे,अट्ठानवे,निन्यानवे,सौ'.split(',');
+mkT('hngrid','hnRead','hnStop',HW.map((w,i)=>(i+1)+'~'+w+'~~'+w).join('\n'),'hi',34);
+mkT('calgrid','calRead','calStop',`January~जनवरी~❄️
+February~फ़रवरी~💝
+March~मार्च~🌸
+April~अप्रैल~🌦️
+May~मई~☀️
+June~जून~🌞
+July~जुलाई~🌧️
+August~अगस्त~🎉
+September~सितंबर~📚
+October~अक्टूबर~🪔
+November~नवंबर~🍂
+December~दिसंबर~🎄
+Monday~सोमवार~🌙
+Tuesday~मंगलवार~🔥
+Wednesday~बुधवार~🌿
+Thursday~गुरुवार~📖
+Friday~शुक्रवार~🌟
+Saturday~शनिवार~🪐
+Sunday~रविवार~☀️
+Summer~ग्रीष्म~🌞
+Rainy season~वर्षा~☔
+Autumn~शरद~🍁
+Late autumn~हेमंत~🧣
+Winter~शिशिर~⛄
+Spring~वसंत~🌼`);
+mkT('casgrid','casRead','casStop',`Red~लाल~🔴
+Orange~नारंगी~🟠
+Yellow~पीला~🟡
+Green~हरा~🟢
+Blue~नीला~🔵
+Purple~बैंगनी~🟣
+Brown~भूरा~🟤
+Black~काला~⚫
+White~सफ़ेद~⚪
+Circle~गोला~●
+Square~वर्ग~■
+Triangle~त्रिकोण~▲
+Star~तारा~★
+Heart~दिल~♥
+Diamond~हीरा~◆
+Cow~गाय~🐮~The cow says moo
+Dog~कुत्ता~🐶~The dog says woof
+Cat~बिल्ली~🐱~The cat says meow
+Lion~शेर~🦁~The lion says roar
+Pig~सूअर~🐷~The pig says oink
+Frog~मेंढक~🐸~The frog says ribbit
+Sheep~भेड़~🐑~The sheep says baa
+Hen~मुर्गी~🐔~The hen says cluck
+Horse~घोड़ा~🐴~The horse says neigh
+Bee~मधुमक्खी~🐝~The bee says buzz
+Duck~बतख~🦦~The duck says quack
+Elephant~हाथी~🐘~The elephant trumpets`);
+mkT('scigrid','sciRead','sciStop',`Eyes~आँखें~👀~We see with our eyes
+Ears~कान~👂~We hear with our ears
+Nose~नाक~👃~We smell with our nose
+Mouth~मुँह~👄~We taste and talk with our mouth
+Hands~हाथ~🖐️~We hold things with our hands
+Feet~पैर~🦶~We walk with our feet
+Teeth~दाँत~🦷~Teeth help us chew food
+Brain~दिमाग़~🧠~The brain helps us think
+Heart~दिल~❤️~The heart pumps blood around the body
+Mercury~बुध~🔘~Mercury is the closest planet to the Sun
+Venus~शुक्र~🟡~Venus is the hottest planet
+Earth~पृथ्वी~🌍~Earth is our home
+Mars~मंगल~🔴~Mars is the red planet
+Jupiter~बृहस्पति~🟠~Jupiter is the biggest planet
+Saturn~शनि~🪐~Saturn has beautiful rings
+Uranus~अरुण~🔵~Uranus spins on its side
+Neptune~वरुण~🔷~Neptune is the farthest planet from the Sun
+Root~जड़~🥕~Roots take water from the soil
+Stem~तना~🌱~The stem holds up the plant
+Leaf~पत्ती~🍃~Leaves make food using sunlight
+Flower~फूल~🌸~Flowers make seeds
+Evaporation~वाष्पीकरण~☀️~The sun heats water and it rises as vapor
+Condensation~संघनन~☁️~Vapor cools and makes clouds
+Rain~वर्षा~🌧️~Water falls from clouds as rain`);
+mkT('gkgrid','gkRead','gkStop',`Tiranga~तिरंगा~🟠⚪🟢~India’s flag is called the Tiranga, with saffron, white and green
+Tiger~बाघ~🐅~The tiger is India’s national animal
+Peacock~मोर~🦚~The peacock is India’s national bird
+Lotus~कमल~🪷~The lotus is India’s national flower
+Banyan~बरगद~🌳~The banyan is India’s national tree
+Mango~आम~🥭~The mango is India’s national fruit
+Ganga~गंगा~🌊~The Ganga is India’s national river
+New Delhi~नई दिल्ली~🏛️~New Delhi is the capital of India
+Rupee~रुपया~₹~The rupee is India’s money
+Republic Day~गणतंत्र दिवस~🎖️~Republic Day is on 26 January
+Independence Day~स्वतंत्रता दिवस~🎆~Independence Day is on 15 August
+Gandhi Jayanti~गांधी जयंती~🕊️~Gandhi Jayanti is on 2 October
+Children’s Day~बाल दिवस~🎈~Children’s Day is on 14 November
+Diwali~दीवाली~🪔~Diwali is the festival of lights
+Holi~होली~🎨~Holi is the festival of colors
+Eid~ईद~🌙~Eid is a festival of joy and sharing
+Christmas~क्रिसमस~🎄~Christmas is celebrated on 25 December`);
+const RS=[['Little Green Frog','en','Little green frog on a log,\nHop, hop, hop through the fog.\nOne, two, three, splash, splash, splash,\nJump in the pond with a happy dash!'],['The Sleepy Sun','en','The sun says hello and the sky turns gold,\nThe birds sing songs and the flowers unfold.\nWhen the moon peeks in, the sun goes to bed,\nGood night, dear sun, with a yawn and a nod.'],['Count With Me','en','One little finger, two little toes,\nThree little blossoms on a rose.\nFour little puppies, five little bees,\nSix little leaves on tall green trees.'],['छोटी सी चिड़िया','hi','छोटी सी चिड़िया, चूँ-चूँ गाए,\nदाना चुगे और उड़ती जाए।\nनीला आसमान, मीठी हवा,\nसबको प्यारी चिड़िया की दवा।'],['चतुर खरगोश','hi','एक जंगल में चतुर खरगोश रहता था। एक दिन नदी में बाढ़ आ गई। खरगोश ने सब दोस्तों को ऊँची पहाड़ी पर बुला लिया। सब बच गए और सबने खरगोश को धन्यवाद कहा।'],['मीठा आम','hi','रानी के बगीचे में आम का पेड़ था। गर्मियों में उस पर पीले-पीले आम लगे। रानी ने सब बच्चों को बुलाकर आम बाँटे। सबने कहा, कितना मीठा आम!']];
+let rsI=0;const rsB=document.getElementById('rsBtns'),rsBox=document.getElementById('rsBox');
+const rsShow=()=>{rsBox.lang=RS[rsI][1];rsBox.textContent=RS[rsI][0]+'\n\n'+RS[rsI][2]};
+RS.forEach((r,i)=>{const b=document.createElement('button');b.className='btn g';b.textContent=r[0];b.onclick=()=>{hush();rsI=i;rsShow()};rsB.appendChild(b)});rsShow();
+document.getElementById('rsRead').onclick=()=>{hush();const r=RS[rsI];if(r[1]==='hi')spHi(r[2]);else speak(r[2])};
+document.getElementById('rsStop').onclick=hush;
+/* ---------- more quiz data ---------- */
+const PL=[['cat','cats'],['dog','dogs'],['box','boxes'],['child','children'],['man','men'],['mouse','mice'],['foot','feet'],['baby','babies'],['leaf','leaves'],['tooth','teeth'],['bus','buses'],['sheep','sheep']],
+NV=[['run','Verb'],['jump','Verb'],['apple','Noun'],['school','Noun'],['sing','Verb'],['book','Noun'],['eat','Verb'],['river','Noun'],['sleep','Verb'],['teacher','Noun'],['write','Verb'],['happy','Adjective'],['big','Adjective'],['red','Adjective'],['tasty','Adjective']],
+MO=['January','February','March','April','May','June','July','August','September','October','November','December'],
+GKQ=[['National bird of India?','Peacock','n'],['National animal of India?','Tiger','n'],['National flower of India?','Lotus','n'],['National fruit of India?','Mango','n'],['National tree of India?','Banyan','n'],['National river of India?','Ganga','n'],['Capital of India?','New Delhi','o'],['Money used in India?','Rupee','o'],['Independence Day is on?','15 August','d'],['Republic Day is on?','26 January','d'],['Gandhi Jayanti is on?','2 October','d'],['Children’s Day is on?','14 November','d'],['Festival of lights?','Diwali','f'],['Festival of colors?','Holi','f']],
+XG={n:['Rose','Eagle','Oak','Cow'],o:['Mumbai','Dollar','Kolkata','Pound'],d:['1 January','5 June','25 December','10 May'],f:['Eid','Onam','Pongal','Baisakhi']},
+SC=[['Which planet is called the Red Planet?','Mars','p'],['Which planet is the biggest?','Jupiter','p'],['Which planet has beautiful rings?','Saturn','p'],['Which planet is closest to the Sun?','Mercury','p'],['Which planet is our home?','Earth','p'],['What do we see with?','Eyes','b'],['What do we hear with?','Ears','b'],['What do we smell with?','Nose','b'],['What pumps blood around the body?','Heart','b'],['What do roots take from the soil?','Water','x'],['What do leaves use to make food?','Sunlight','x'],['What falls from clouds?','Rain','x']],
+XS={p:['Venus','Neptune','Uranus','Mars'],b:['Mouth','Brain','Hands','Feet'],x:['Wind','Snow','Sand','Air']};
+const fq=(L,X,e)=>()=>{const a=L[R(L.length)];return{big:e,q:a[0],ans:a[1],opts:opts(a[1],[...L.filter(x=>x[2]===a[2]).map(x=>x[1]),...(X[a[2]]||[])])}};
+Object.assign(Q,{
+frac:()=>{const d=[3,4,5,6,8,10][R(6)],a=1+R(d-1),b=1+R(d-a),ans=(a+b)+'/'+d;return{big:a+'/'+d+' + '+b+'/'+d,q:'What is the answer?',ans:ans,opts:opts(ans,[(a+b+1)+'/'+d,(a+b-1)+'/'+d,(a+b+2)+'/'+d,(a+b)+'/'+(d+1),(a+b+3)+'/'+d])}},
+dec:()=>{const x=10+R(90),y=10+R(90),f=v=>(v/10).toFixed(1),ans=f(x+y);return{big:f(x)+' + '+f(y),q:'What is the answer?',ans:ans,opts:opts(ans,[f(x+y+1),f(x+y-1),f(x+y+10),f(x+y-10),f(x+y+2)])}},
+si:()=>{const P=[1000,2000,5000,10000][R(4)],r=[5,6,8,10][R(4)],t=1+R(3),i=P*r*t/100,base=P*r/100,ans='₹'+i;return{big:'P = ₹'+P+', R = '+r+'%, T = '+t+' yr',q:'What is the simple interest?',ans:ans,opts:opts(ans,[i+base,i-base,i*2,i+100,i/2].filter(x=>x>0).map(x=>'₹'+x))}},
+geo:()=>{const t=R(4);let q,ans,big;if(t===0){const b=2*(2+R(8)),h=2+R(9);big='Triangle: b = '+b+', h = '+h;q='What is the area?';ans=b*h/2}else if(t===1){const a=2+R(12);big='Square: side = '+a;q='What is the perimeter?';ans=4*a}else if(t===2){const r=7*(1+R(3));big='Circle: r = '+r+' (use π = 22/7)';q='What is the area?';ans=22*r*r/7}else{const l=2+R(9),b=2+R(9),h=2+R(5);big='Cuboid: '+l+' × '+b+' × '+h;q='What is the volume?';ans=l*b*h}return{big:'<span style="font-size:30px">'+big+'</span>',q:q,ans:ans,opts:opts(ans,[ans+2,ans-2,ans+10,ans*2,ans+4,ans-4].filter(x=>x>0))}},
+code:()=>{const s=1+R(9),n=2+R(4),d=1+R(5),ans=s+n*d;return{big:'<span style="font-size:28px">x = '+s+'<br>repeat '+n+' times:<br>x = x + '+d+'</span>',q:'What is x at the end?',ans:ans,opts:opts(ans,[ans-d,ans+d,ans+1,ans-1,ans+2])}},
+plural:()=>{const a=PL[R(PL.length)];return{big:a[0],q:'What is the plural?',ans:a[1],opts:opts(a[1],PL.map(x=>x[1]))}},
+nv:()=>{const a=NV[R(NV.length)];return{big:a[0],q:'Is it a noun, a verb or an adjective?',ans:a[1],opts:opts(a[1],['Noun','Verb','Adjective'],3)}},
+month:()=>{const i=R(12),af=R(2)===0,ans=MO[(i+(af?1:11))%12];return{big:'🗓️',q:'Which month comes '+(af?'after ':'before ')+MO[i]+'?',ans:ans,opts:opts(ans,MO)}},
+gk:fq(GKQ,XG,'🎖️'),sci:fq(SC,XS,'🔬')});
+/* ---------- more games ---------- */
+function drawBoard(){gBody.innerHTML='<div class="gq">Draw with your finger or mouse!</div><canvas id="cv" width="600" height="320" style="width:100%;border:1px solid var(--line);background:#fff;touch-action:none;cursor:crosshair"></canvas><div class="row" style="margin-top:10px" id="cpal"></div>';
+  const cv=document.getElementById('cv'),c=cv.getContext('2d'),cp=document.getElementById('cpal');let col='#e85f4a',sz=8,dn=false,last=null;c.lineCap='round';c.lineJoin='round';
+  const pos=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height]};
+  cv.onpointerdown=e=>{dn=true;cv.setPointerCapture(e.pointerId);last=pos(e);c.fillStyle=col;c.beginPath();c.arc(last[0],last[1],sz/2,0,7);c.fill()};
+  cv.onpointermove=e=>{if(!dn)return;const p=pos(e);c.strokeStyle=col;c.lineWidth=sz;c.beginPath();c.moveTo(last[0],last[1]);c.lineTo(p[0],p[1]);c.stroke();last=p};
+  cv.onpointerup=cv.onpointercancel=()=>{dn=false};
+  ['#e85f4a','#ffa63d','#f6d55c','#3fbf79','#5fa8ff','#b79cff','#17362b','#ffffff'].forEach(k=>{const b=document.createElement('button');b.className='blob';b.style.cssText='width:40px;height:40px;background:'+k;b.setAttribute('aria-label','Color '+k);b.onclick=()=>{col=k;pop()};cp.appendChild(b)});
+  [['Thin',3],['Medium',8],['Thick',18]].forEach(s=>{const b=document.createElement('button');b.className='btn g';b.textContent=s[0];b.onclick=()=>{sz=s[1]};cp.appendChild(b)});
+  const cl=document.createElement('button');cl.className='btn t';cl.textContent='Clear';cl.onclick=()=>c.clearRect(0,0,600,320);cp.appendChild(cl)}
+function hang(){const W=['ELEPHANT','TIGER','BANANA','PLANET','ROCKET','RAINBOW','DOLPHIN','GARDEN','SCHOOL','FLOWER','MONKEY','CASTLE'],w=W[R(W.length)],g=new Set();let miss=0;
+  const draw=()=>{const done=[...w].every(c=>g.has(c));
+    gBody.innerHTML='<div class="gscore">Wrong guesses: '+miss+' of 6 '+'💔'.repeat(miss)+'</div><div class="gbig" style="letter-spacing:6px">'+[...w].map(c=>g.has(c)||miss>=6?c:'_').join(' ')+'</div>'+(done?'<div class="gwin">You saved the word! 🎉</div>':miss>=6?'<div class="gwin">The word was '+w+'</div>':'<div class="gopts" style="grid-template-columns:repeat(7,1fr);gap:6px">'+[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map(c=>'<button class="gopt" style="min-height:44px;padding:4px;font-size:16px'+(g.has(c)?';opacity:.3':'')+'"'+(g.has(c)?' disabled':'')+'>'+c+'</button>').join('')+'</div>');
+    if(done){win();again(hang)}else if(miss>=6){bad();again(hang)}else gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{const c=b.textContent;g.add(c);if(w.includes(c))pop();else{miss++;bad()}draw()})};draw()}
+function hanoi(){let pegs=[[3,2,1],[],[]],sel=-1,mv=0;
+  const draw=()=>{gBody.innerHTML='<div class="gq">Move all discs to the last peg. A big disc cannot sit on a small one.</div><div class="gscore">Moves: '+mv+' (best possible: 7)</div><div class="gopts" style="grid-template-columns:repeat(3,1fr)">'+pegs.map((p,i)=>'<button class="gopt" data-i="'+i+'" aria-label="Peg '+(i+1)+'" style="min-height:190px;display:flex;flex-direction:column-reverse;align-items:center;gap:4px;padding:8px'+(i===sel?';outline:3px solid var(--ring)':'')+'">'+p.map(d=>'<span style="display:block;height:26px;width:'+(30+d*22)+'%;background:var(--green2);border-radius:4px"></span>').join('')+'</button>').join('')+'</div>';
+    gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;
+      if(sel<0){if(pegs[i].length){sel=i;pop();draw()}return}
+      if(sel!==i){const d=pegs[sel][pegs[sel].length-1],t=pegs[i];
+        if(!t.length||t[t.length-1]>d){t.push(pegs[sel].pop());mv++;pop();sel=-1;draw();if(pegs[2].length===3){gBody.insertAdjacentHTML('beforeend','<div class="gwin">Solved in '+mv+' moves! 🎉</div>');win();again(hanoi)}return}
+        bad()}
+      sel=-1;draw()})};draw()}
+function duel(){let a=0,b=0;const T=10;
+  const draw=()=>{const w=a>=T?'Player 1 wins! 🎉':b>=T?'Player 2 wins! 🎉':'';
+    gBody.innerHTML='<div class="gq">Two players: tap your own button as fast as you can. First to '+T+' wins!</div><div class="gscore">Player 1: '+a+' · Player 2: '+b+'</div><div class="gopts"><button class="gopt" id="p1" style="min-height:140px;background:#ffb3d5;color:#17362b;font-size:26px">Player 1</button><button class="gopt" id="p2" style="min-height:140px;background:#b3e6ff;color:#17362b;font-size:26px">Player 2</button></div>'+(w?'<div class="gwin">'+w+'</div>':'');
+    if(w){win();again(duel);return}document.getElementById('p1').onclick=()=>{a++;pop();draw()};document.getElementById('p2').onclick=()=>{b++;pop();draw()}};draw()}
+function clockGame(){const th=1+R(12),tm=[0,15,30,45][R(4)];let h=12,m=0;
+  const draw=()=>{const ha=(h%12)*30+m*.5,ma=m*6,pt=(a,l)=>[100+l*Math.sin(a*Math.PI/180),100-l*Math.cos(a*Math.PI/180)],H=pt(ha,45),M=pt(ma,70);
+    gBody.innerHTML='<div class="gq">Set the clock to '+th+':'+String(tm).padStart(2,'0')+'</div><svg viewBox="0 0 200 200" style="width:230px;display:block;margin:auto" role="img" aria-label="Clock showing '+h+':'+String(m).padStart(2,'0')+'"><circle cx="100" cy="100" r="92" style="fill:var(--surface);stroke:var(--ink);stroke-width:4"/>'+[...Array(12)].map((_,k)=>{const p=pt((k+1)*30,76);return '<text x="'+p[0]+'" y="'+(p[1]+5)+'" text-anchor="middle" style="fill:var(--ink);font:700 15px sans-serif">'+(k+1)+'</text>'}).join('')+'<line x1="100" y1="100" x2="'+H[0]+'" y2="'+H[1]+'" style="stroke:var(--ink);stroke-width:6;stroke-linecap:round"/><line x1="100" y1="100" x2="'+M[0]+'" y2="'+M[1]+'" style="stroke:var(--green2);stroke-width:4;stroke-linecap:round"/></svg><div class="row" style="justify-content:center;margin-top:12px"><button class="btn g" id="hm">Hour −</button><button class="btn g" id="hp">Hour +</button><button class="btn g" id="mm">Minutes −</button><button class="btn g" id="mp">Minutes +</button></div><div style="text-align:center"><button class="btn" id="ck">Check ✔</button></div><div class="gwin" id="gr"></div>';
+    const go=(f)=>()=>{f();pop();draw()};
+    document.getElementById('hp').onclick=go(()=>{h=h%12+1});document.getElementById('hm').onclick=go(()=>{h=(h+10)%12+1});
+    document.getElementById('mp').onclick=go(()=>{m=(m+15)%60});document.getElementById('mm').onclick=go(()=>{m=(m+45)%60});
+    document.getElementById('ck').onclick=()=>{const gr=document.getElementById('gr');if(h===th&&m===tm){gr.textContent='Perfect! 🎉';win();again(clockGame)}else{bad();gr.textContent='Not yet. Try again!'}}};draw()}
+function pizza(){const d=[2,3,4,6,8][R(5)],a=1+R(d-1),sel=new Set();
+  const draw=()=>{const pt=k=>[100+90*Math.sin(2*Math.PI*k/d),100-90*Math.cos(2*Math.PI*k/d)];
+    gBody.innerHTML='<div class="gq">Colour '+a+'/'+d+' of the pizza: tap '+a+' out of '+d+' slices.</div><svg viewBox="0 0 200 200" style="width:240px;display:block;margin:auto">'+[...Array(d)].map((_,k)=>{const p=pt(k),q=pt(k+1);return '<path tabindex="0" role="button" aria-label="Slice '+(k+1)+'" data-k="'+k+'" d="M100,100 L'+p[0]+','+p[1]+' A90,90 0 0 1 '+q[0]+','+q[1]+' Z" style="fill:'+(sel.has(k)?'#e85f4a':'#f4c06a')+';stroke:#17362b;stroke-width:2;cursor:pointer"/>'}).join('')+'</svg><div class="gscore">Chosen: '+sel.size+'/'+d+'</div><div style="text-align:center"><button class="btn" id="ck">Check ✔</button></div><div class="gwin" id="gr"></div>';
+    gBody.querySelectorAll('path').forEach(p=>{const t=()=>{const k=+p.dataset.k;sel.has(k)?sel.delete(k):sel.add(k);pop();draw()};p.onclick=t;p.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}}});
+    document.getElementById('ck').onclick=()=>{const gr=document.getElementById('gr');if(sel.size===a){gr.textContent='Yes! '+a+'/'+d+' 🎉';win();again(pizza)}else{bad();gr.textContent='You chose '+sel.size+'. You need '+a+'.'}}};draw()}
+/* ---------- audio: music, read aloud ---------- */
+let musOn=false,musT=null,musI=0,readQ=false;
+const mus=document.getElementById('mus'),gRead=document.getElementById('gRead');
+function mnote(f,d,v){const c=ctx();if(!c)return;const o=c.createOscillator(),g=c.createGain(),t=c.currentTime;o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.05);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.05)}
+function musicTick(){if(!soundOn)return;const P=[262,294,330,392,440,523],m=[0,2,4,5,4,2,1,3,2,4,5,4,2,1,0,2],f=P[m[musI%16]];mnote(f,.45,.07);if(musI%4===0)mnote(f/2,.9,.05);musI++}
+mus.onclick=()=>{musOn=!musOn;mus.innerHTML=musOn?'🎵<span class="lbl"> Music on</span>':'🔕<span class="lbl"> Music off</span>';mus.setAttribute('aria-pressed',musOn);clearInterval(musT);if(musOn){ctx();musicTick();musT=setInterval(musicTick,450)}};
+document.addEventListener('visibilitychange',()=>{clearInterval(musT);if(!document.hidden&&musOn)musT=setInterval(musicTick,450)});
+gRead.onclick=()=>{readQ=!readQ;gRead.textContent=readQ?'🗣️ On':'🗣️ Off';gRead.setAttribute('aria-pressed',readQ);if(!readQ)hush()};
+function cleanSpeech(raw,hi){let t=String(raw).replace(/<br>/g,', ').replace(/<[^>]*>/g,' ')
+  .replace(/([\u2680-\u2685])\s*([\u2680-\u2685])/g,(m,x,y)=>' '+(x.charCodeAt(0)-0x267F)+' and '+(y.charCodeAt(0)-0x267F)+' ')
+  .replace(/[\u2680-\u2685]/g,m=>' '+(m.charCodeAt(0)-0x267F)+' ')
+  .replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,' ')
+  .replace(/\u20b9\s*(\d+)/g,'$1 '+(hi?'\u0930\u0941\u092a\u092f\u0947':'rupees'));
+  if(hi)return t.replace(/\+/g,' \u0914\u0930 ').replace(/\s+/g,' ').trim();
+  return t.replace(/\bCP\b/g,'cost price').replace(/\bSP\b/g,'selling price').replace(/\byr\b/g,'years').replace(/(\d+)%/g,'$1 percent').replace(/(\d+)\/(\d+)/g,'$1 over $2')
+  .replace(/\u00d7/g,' times ').replace(/\u2212/g,' minus ').replace(/\+/g,' plus ').replace(/\u00f7/g,' divided by ').replace(/=/g,' equals ').replace(/\?/g,' blank ').replace(/_/g,' blank ').replace(/\u00b7/g,', ').replace(/\u03c0/g,' pi ').replace(/\s+/g,' ').replace(/\s+,/g,',').replace(/^[,\s]+/,'').trim()}
+function sayQ(g){const hi=/[\u0900-\u097F]/.test(g.q),t=cleanSpeech(g.big,hi);if(hi)spHi((/[\u0900-\u097F0-9]/.test(t)?t+'. ':'')+g.q);else speak((/[A-Za-z0-9]/.test(t)?t+'. ':'')+g.q)}
+/* ---------- more quiz games ---------- */
+const CM=[['Red','Yellow','Orange'],['Blue','Yellow','Green'],['Red','Blue','Purple'],['Red','White','Pink'],['Black','White','Grey']],
+HOMES=[['🐟','Water'],['🐦','Nest'],['🐝','Hive'],['🐶','Kennel'],['🐄','Barn'],['🐜','Anthill'],['🕷️','Web'],['🦁','Den']],
+FVL=[['🍎','Fruit'],['🥕','Vegetable'],['🍌','Fruit'],['🥦','Vegetable'],['🍇','Fruit'],['🥔','Vegetable'],['🍓','Fruit'],['🌽','Vegetable'],['🍊','Fruit'],['🥬','Vegetable'],['🍉','Fruit'],['🍆','Vegetable']],
+RHM=[['cat','hat'],['dog','log'],['sun','fun'],['bee','tree'],['star','car'],['moon','spoon'],['light','night'],['rain','train'],['cake','lake'],['bear','chair']];
+Object.assign(Q,{
+cmix:()=>{const a=CM[R(CM.length)];return{big:a[0]+' + '+a[1],q:'What color do you get?',ans:a[2],opts:opts(a[2],['Orange','Green','Purple','Pink','Grey','Brown'])}},
+homes:()=>{const a=HOMES[R(HOMES.length)];return{big:a[0],q:'Where does it live?',ans:a[1],opts:opts(a[1],HOMES.map(x=>x[1]))}},
+fv:()=>{const a=FVL[R(FVL.length)];return{big:a[0],q:'Is it a fruit or a vegetable?',ans:a[1],opts:opts(a[1],['Fruit','Vegetable'],2)}},
+vc:()=>{const L='ABCDEFGHIJKLMNOPQRSTUVWXYZ'[R(26)],ans='AEIOU'.includes(L)?'Vowel':'Consonant';return{big:L,q:'Is it a vowel or a consonant?',ans:ans,opts:opts(ans,['Vowel','Consonant'],2)}},
+rhyme:()=>{const a=RHM[R(RHM.length)];return{big:a[0],q:'Which word rhymes with '+a[0]+'?',ans:a[1],opts:opts(a[1],RHM.map(x=>x[1]))}},
+dice:()=>{const F=['⚀','⚁','⚂','⚃','⚄','⚅'],x=1+R(6),y=1+R(6),ans=x+y;return{big:F[x-1]+' '+F[y-1],q:'What is the total?',ans:ans,opts:opts(ans,[ans-2,ans-1,ans+1,ans+2,ans+3].filter(v=>v>1))}},
+bonds:()=>{const t=[10,20][R(2)],a=1+R(t-1),ans=t-a;return{big:a+' + ? = '+t,q:'Which number is missing?',ans:ans,opts:opts(ans,[ans-2,ans-1,ans+1,ans+2,ans+3].filter(v=>v>0))}},
+skip:()=>{const s=[2,3,5,10][R(4)],st=s*(1+R(3)),sq=[0,1,2,3].map(k=>st+k*s),ans=st+4*s;return{big:sq.join(', ')+', ?',q:'Count by '+s+'s. What comes next?',ans:ans,opts:opts(ans,[ans-s,ans+s,ans+1,ans-1,ans+2])}},
+coins:()=>{const C=[1,2,5,10],a=C[R(4)],b=C[R(4)],c=C[R(4)],s=a+b+c,ans='₹'+s;return{big:'₹'+a+' + ₹'+b+' + ₹'+c,q:'How much money is it?',ans:ans,opts:opts(ans,[s-2,s-1,s+1,s+2,s+5].filter(v=>v>0).map(v=>'₹'+v))}}});
+/* ---------- more games ---------- */
+function wsearch(){const N=8,W=sh(['CAT','DOG','SUN','FISH','TREE','MOON','STAR','BIRD','FROG','RAIN']).slice(0,4),g=Array.from({length:N},()=>Array(N).fill(''));
+  W.forEach(w=>{for(let tr=0;tr<100;tr++){const hz=R(2)===0,r=R(hz?N:N-w.length+1),c=R(hz?N-w.length+1:N);let ok=true;for(let k=0;k<w.length;k++){const x=hz?r:r+k,y=hz?c+k:c;if(g[x][y]&&g[x][y]!==w[k])ok=false}if(ok){for(let k=0;k<w.length;k++){const x=hz?r:r+k,y=hz?c+k:c;g[x][y]=w[k]}break}}});
+  for(let x=0;x<N;x++)for(let y=0;y<N;y++)if(!g[x][y])g[x][y]='ABCDEFGHIJKLMNOPQRSTUVWXYZ'[R(26)];
+  const found=new Set(),cells=new Set();let first=null;
+  const draw=()=>{gBody.innerHTML='<div class="gq">Find the words: '+W.map(w=>found.has(w)?'<s>'+w+'</s>':w).join(', ')+'<br><small>Tap the first letter, then the last letter.</small></div><div class="gopts" style="grid-template-columns:repeat(8,1fr);gap:4px;max-width:420px;margin:auto">'+g.map((row,x)=>row.map((ch,y)=>'<button class="gopt" data-x="'+x+'" data-y="'+y+'" style="min-height:42px;padding:0;font-size:18px'+(cells.has(x+','+y)?';background:var(--lime);color:#17362b':'')+(first&&first[0]===x&&first[1]===y?';outline:3px solid var(--ring)':'')+'">'+ch+'</button>').join('')).join('')+'</div>';
+    gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{const x=+b.dataset.x,y=+b.dataset.y;if(!first){first=[x,y];pop();draw();return}
+      const fx=first[0],fy=first[1];first=null;let s='',pc=[];
+      if(fx===x||fy===y){const dx=Math.sign(x-fx),dy=Math.sign(y-fy);let cx=fx,cy=fy;for(;;){s+=g[cx][cy];pc.push(cx+','+cy);if(cx===x&&cy===y)break;cx+=dx;cy+=dy}}
+      const rev=[...s].reverse().join(''),w=W.find(q=>q===s||q===rev);
+      if(w&&!found.has(w)){found.add(w);pc.forEach(p=>cells.add(p));pop();if(found.size===W.length){draw();gBody.insertAdjacentHTML('beforeend','<div class="gwin">You found them all! 🎉</div>');win();again(wsearch);return}}else bad();draw()})};draw()}
+function maze(){const N=6,c=Array.from({length:N},()=>Array.from({length:N},()=>({n:1,e:1,s:1,w:1,v:0}))),D=[[-1,0,'n','s'],[0,1,'e','w'],[1,0,'s','n'],[0,-1,'w','e']],st=[[0,0]];c[0][0].v=1;
+  while(st.length){const x=st[st.length-1][0],y=st[st.length-1][1],nb=sh(D).filter(d=>{const a=x+d[0],b=y+d[1];return a>=0&&b>=0&&a<N&&b<N&&!c[a][b].v});if(!nb.length){st.pop();continue}const d=nb[0],a=x+d[0],b=y+d[1];c[x][y][d[2]]=0;c[a][b][d[3]]=0;c[a][b].v=1;st.push([a,b])}
+  let px=0,py=0,mv=0;
+  const draw=()=>{gBody.innerHTML='<div class="gq">Help 🐭 reach the 🧀! Use the arrow buttons.</div><div class="gscore">Moves: '+mv+'</div><div style="display:grid;grid-template-columns:repeat('+N+',1fr);max-width:330px;margin:auto;border:2px solid var(--ink)">'+c.map((row,x)=>row.map((k,y)=>'<div style="aspect-ratio:1;display:grid;place-items:center;font-size:24px;border-top:'+(k.n?2:0)+'px solid var(--ink);border-right:'+(k.e?2:0)+'px solid var(--ink);border-bottom:'+(k.s?2:0)+'px solid var(--ink);border-left:'+(k.w?2:0)+'px solid var(--ink)">'+(x===px&&y===py?'🐭':x===N-1&&y===N-1?'🧀':'')+'</div>').join('')).join('')+'</div><div style="display:grid;grid-template-columns:repeat(3,64px);gap:8px;justify-content:center;margin-top:14px"><span></span><button class="btn g" data-d="n" aria-label="Up">⬆</button><span></span><button class="btn g" data-d="w" aria-label="Left">⬅</button><button class="btn g" data-d="s" aria-label="Down">⬇</button><button class="btn g" data-d="e" aria-label="Right">➡</button></div>';
+    gBody.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{const d=D.find(q=>q[2]===b.dataset.d);if(c[px][py][d[2]]){bad();return}px+=d[0];py+=d[1];mv++;pop();draw();if(px===N-1&&py===N-1){gBody.insertAdjacentHTML('beforeend','<div class="gwin">You found the cheese in '+mv+' moves! 🎉</div>');win();again(maze)}})};draw()}
+function ttt2(){let b=Array(9).fill(''),turn='X',over=false;const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]],w3=m=>L.some(l=>l.every(i=>b[i]===m));
+  const draw=msg=>{gBody.innerHTML='<div class="gq">'+(msg||'Player '+(turn==='X'?'1 ❌':'2 ⭕')+', your turn!')+'</div><div class="gopts" style="grid-template-columns:repeat(3,1fr)">'+b.map((v,i)=>'<button class="gopt" data-i="'+i+'" aria-label="Square '+(i+1)+'" style="font-size:40px;min-height:84px">'+(v==='X'?'❌':v==='O'?'⭕':'')+'</button>').join('')+'</div>';
+    gBody.querySelectorAll('.gopt').forEach(x=>x.onclick=()=>{const i=+x.dataset.i;if(over||b[i])return;b[i]=turn;pop();
+      if(w3(turn)){over=true;win();draw('Player '+(turn==='X'?'1':'2')+' wins! 🎉');again(ttt2);return}
+      if(!b.includes('')){over=true;draw('A draw!');again(ttt2);return}turn=turn==='X'?'O':'X';draw()})};draw()}
+function react(){let st=0,wait=true,tm;
+  gBody.innerHTML='<div class="gq">Wait for green, then tap fast!</div><button class="gopt" id="rb" style="width:100%;min-height:200px;font-size:26px;background:#e85f4a;color:#fff">Wait...</button><div class="gwin" id="gr"></div>';
+  const rb=document.getElementById('rb'),gr=document.getElementById('gr');
+  const go=()=>{wait=false;st=performance.now();rb.style.background='#3fbf79';rb.textContent='TAP NOW!';tone(660,880,.2,'triangle')};
+  const arm=()=>{tm=setTimeout(go,1500+R(2500));gT.push(tm)};arm();
+  rb.onclick=()=>{if(wait){bad();gr.textContent='Too early! Wait for green.';clearTimeout(tm);arm();return}const ms=Math.round(performance.now()-st);gr.textContent=ms+' ms '+(ms<400?'⚡ Super fast!':ms<700?'👍 Good!':'🐢 Try again!');win();rb.disabled=true;again(react)}}
+function typing(){const W=['apple','tiger','green','river','happy','music','cloud','smile','garden','rocket','planet','flower','school','friend'];let s=0,t=[40,30,20][LV-1],w='';
+  gBody.innerHTML='<div class="gscore" id="gs"></div><div class="gbig" id="gw"></div><div style="text-align:center"><input id="gi" autocomplete="off" autocapitalize="off" aria-label="Type the word" style="font:inherit;font-size:26px;width:200px;padding:10px;text-align:center;border:1px solid var(--line);background:var(--bg);color:var(--text)"> <button class="btn" id="gb">OK</button></div>';
+  const gs=document.getElementById('gs'),gw=document.getElementById('gw'),gi=document.getElementById('gi'),upd=()=>gs.textContent='Time: '+t+'s · Score: '+s,nw=()=>{w=W[R(W.length)];gw.textContent=w};
+  const go=()=>{if(t<=0)return;if(gi.value.trim().toLowerCase()===w){s++;pop();nw()}else if(gi.value)bad();gi.value='';gi.focus()};
+  document.getElementById('gb').onclick=go;gi.onkeydown=e=>{if(e.key==='Enter')go()};nw();upd();gi.focus();
+  const tm=setInterval(()=>{t--;upd();if(t<=0){clearInterval(tm);gi.disabled=true;gBody.insertAdjacentHTML('beforeend','<div class="gwin">Time is up! Score: '+s+' 🎉</div>');win();again(typing)}},1000);gT.push(tm)}
+function piano(){const K=[['C',262],['D',294],['E',330],['F',349],['G',392],['A',440],['B',494],['C',523]];
+  gBody.innerHTML='<div class="gq">Tap the keys to play notes. Try C D E F G!</div><div class="gopts" style="grid-template-columns:repeat(8,1fr);gap:4px">'+K.map((k,i)=>'<button class="gopt" data-i="'+i+'" style="min-height:170px;background:#fff;color:#17362b;display:flex;align-items:flex-end;justify-content:center;padding:8px 0;font-size:18px">'+k[0]+'</button>').join('')+'</div>';
+  gBody.querySelectorAll('.gopt').forEach(b=>b.onclick=()=>{const k=K[+b.dataset.i];tone(k[1],k[1],.7,'triangle')})}
+/* ---------- tracing ---------- */
+function trace(){const TR={'A–Z':[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],'a–z':[...'abcdefghijklmnopqrstuvwxyz'],'1–9':[...'123456789'],'क–ज्ञ':cons,'अ–अः':vow};let set='A–Z',idx=0;
+  const draw=()=>{const ch=TR[set][idx];
+    gBody.innerHTML='<div class="gq">Trace the letter with your finger or mouse.</div><div class="row" style="justify-content:center" id="tset"></div><div style="position:relative;max-width:340px;margin:auto"><canvas id="tg" width="340" height="340" style="position:absolute;inset:0;width:100%;height:100%"></canvas><canvas id="tu" width="340" height="340" style="position:relative;width:100%;border:1px solid var(--line);touch-action:none;cursor:crosshair"></canvas></div><div class="row" style="justify-content:center;margin-top:12px"><button class="btn g" id="tp">◀ Prev</button><button class="btn g" id="tc">Clear</button><button class="btn" id="tk">Check ✔</button><button class="btn g" id="tn">Next ▶</button></div><div class="gwin" id="gr"></div>';
+    const ts=document.getElementById('tset');Object.keys(TR).forEach(k=>{const b=document.createElement('button');b.className='btn g tsb';b.setAttribute('aria-pressed',k===set);b.textContent=k;b.onclick=()=>{set=k;idx=0;draw()};ts.appendChild(b)});
+    const tg=document.getElementById('tg'),tu=document.getElementById('tu'),g=tg.getContext('2d'),u=tu.getContext('2d');
+    g.fillStyle='#fff';g.fillRect(0,0,340,340);g.fillStyle='#c9d6cf';g.font='bold 260px sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(ch,170,185);
+    u.lineCap='round';u.lineJoin='round';u.lineWidth=26;u.strokeStyle='#e85f4a';u.fillStyle='#e85f4a';
+    let dn=false,last=null;const pos=e=>{const r=tu.getBoundingClientRect();return[(e.clientX-r.left)*340/r.width,(e.clientY-r.top)*340/r.height]};
+    tu.onpointerdown=e=>{dn=true;tu.setPointerCapture(e.pointerId);last=pos(e);u.beginPath();u.arc(last[0],last[1],13,0,7);u.fill()};
+    tu.onpointermove=e=>{if(!dn)return;const p=pos(e);u.beginPath();u.moveTo(last[0],last[1]);u.lineTo(p[0],p[1]);u.stroke();last=p};
+    tu.onpointerup=tu.onpointercancel=()=>{dn=false};
+    document.getElementById('tc').onclick=()=>u.clearRect(0,0,340,340);
+    document.getElementById('tp').onclick=()=>{idx=(idx+TR[set].length-1)%TR[set].length;draw()};
+    document.getElementById('tn').onclick=()=>{idx=(idx+1)%TR[set].length;draw()};
+    document.getElementById('tk').onclick=()=>{const md=g.getImageData(0,0,340,340).data,ud=u.getImageData(0,0,340,340).data;let tot=0,cov=0,uo=0,ut=0;
+      for(let y=0;y<340;y+=5)for(let x=0;x<340;x+=5){const i=(y*340+x)*4,inM=md[i]<250,dr=ud[i+3]>0;if(inM){tot++;if(dr)cov++}if(dr){ut++;if(!inM)uo++}}
+      const pc=tot?cov/tot:0,out=ut?uo/ut:1,gr=document.getElementById('gr');
+      if(pc>=.7&&out<=.5){gr.textContent='Great tracing! 🎉 Tap Next for the next one.';win()}else{bad();gr.textContent='You covered '+Math.round(pc*100)+'%. '+(out>.5?'Stay inside the letter.':'Cover more of the letter.')}}};draw()}
+/* ---------- profiles, level, streak, play time ---------- */
+let profiles=[{p:'',n:'Kid 1',i:'🧒'}];try{profiles=JSON.parse(localStorage.getItem('pp_profiles'))||profiles}catch(e){}
+const who=document.getElementById('who'),pm=document.getElementById('pm'),pmBody=document.getElementById('pmBody'),strkC=document.getElementById('strkC'),limSel=document.getElementById('limSel'),brk=document.getElementById('brk'),brkPin=document.getElementById('brkPin');
+let limit=store.g('lim',0),pin=store.g('pin',''),played=0;
+const saveP=()=>{try{localStorage.setItem('pp_profiles',JSON.stringify(profiles));localStorage.setItem('pp_cur',PX)}catch(e){}};
+const curP=()=>profiles.find(p=>p.p===PX)||profiles[0];
+function paintWho(){const c=curP();who.innerHTML=c.i+'<span class="nm"> '+c.n+'</span>'}
+function paintLv(){document.querySelectorAll('.lvb[data-l]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.l===LV))}
+function streak(){const k=new Date().toISOString().slice(0,10),y=new Date(Date.now()-864e5).toISOString().slice(0,10);let s=store.g('streak',{last:'',n:0});if(s.last!==k){s={last:k,n:s.last===y?s.n+1:1};store.s('streak',s)}return s.n}
+function loadProfile(){stars=store.g('stars',0);fv=store.g('fav',[]);gst=store.g('stat',{});hatSel=store.g('hat','');LV=store.g('lv',2);limit=store.g('lim',0);pin=store.g('pin','');played=0;limSel.value=limit;
+  hatEl.textContent=hatSel;starC.textContent='⭐ '+stars;strkC.textContent='🔥 '+streak();paintLv();paintWho();renderWard();refreshFav();renderParent()}
+function renderProfiles(){
+  pmBody.innerHTML='<div class="gopts" style="grid-template-columns:1fr">'+profiles.map(p=>{let s=0;try{s=JSON.parse(localStorage.getItem('pp_'+p.p+'stars'))||0}catch(e){}return '<button class="gopt" data-p="'+p.p+'" style="'+(p.p===PX?'background:var(--lime);color:#17362b':'')+'">'+p.i+' '+p.n+' · ⭐ '+s+'</button>'}).join('')+'</div>'+(profiles.length<4?'<div class="row" style="margin-top:14px"><input id="pnm" maxlength="12" placeholder="Child name" aria-label="Child name" style="font:inherit;font-size:18px;padding:10px;border:1px solid var(--line);background:var(--bg);color:var(--text)"><button class="btn" id="padd">Add child</button></div>':'')+(PX!==''?'<div class="row"><button class="btn g" id="prem">Remove '+curP().n+'</button></div>':'');
+  pmBody.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{PX=b.dataset.p;saveP();loadProfile();pm.close()});
+  const add=document.getElementById('padd');if(add)add.onclick=()=>{const n=document.getElementById('pnm').value.trim()||('Kid '+(profiles.length+1)),id='k'+Date.now().toString(36)+'_';profiles.push({p:id,n:n,i:['🧒','👧','👦','🧑'][profiles.length%4]});PX=id;saveP();loadProfile();pm.close()};
+  const rm=document.getElementById('prem');if(rm)rm.onclick=()=>{['stars','fav','stat','hat','lv','streak','lim','pin'].forEach(k=>{try{localStorage.removeItem('pp_'+PX+k)}catch(e){}});profiles=profiles.filter(p=>p.p!==PX);PX='';saveP();loadProfile();pm.close()}}
+who.onclick=()=>{renderProfiles();pm.showModal()};document.getElementById('pmClose').onclick=()=>pm.close();
+document.querySelectorAll('.lvb[data-l]').forEach(b=>b.onclick=()=>{LV=+b.dataset.l;store.s('lv',LV);paintLv();pop();note('Level: '+['Easy','Medium','Hard'][LV-1])});
+limSel.value=limit;
+limSel.onchange=()=>{limit=+limSel.value;store.s('lim',limit);played=0;note(limit?'Play time limit: '+limit+' minutes':'Play time limit is off')};
+document.getElementById('pinSave').onclick=()=>{const pi=document.getElementById('pinIn'),v=pi.value.trim();if(/^\d{4}$/.test(v)){pin=v;store.s('pin',pin);note('PIN saved')}else if(v===''){pin='';store.s('pin','');note('PIN removed')}else note('Use exactly 4 digits');pi.value=''};
+setInterval(()=>{if(document.hidden||!limit||brk.open)return;played+=15;if(played>=limit*60){hush();if(gm.open)gm.close();if(pm.open)pm.close();brkPin.style.display=pin?'':'none';brk.showModal()}},15000);
+brk.addEventListener('cancel',e=>e.preventDefault());
+document.getElementById('brkMore').onclick=()=>{if(pin&&brkPin.value!==pin){bad();note('Wrong PIN');return}played=Math.max(0,limit*60-600);brkPin.value='';brk.close()};
+paintLv();paintWho();strkC.textContent='🔥 '+streak();LV=store.g('lv',2);paintLv();
+const G=[()=>quiz(Q.count),()=>quiz(Q.letter),pads,()=>quiz(Q.shape),()=>quiz(Q.color),frog,memory,()=>quiz(Q.train),grow,()=>quiz(Q.animal),()=>quiz(Q.clock),()=>quiz(Q.add),rainbow,odd,town,()=>quiz(Q.explore),()=>targets('bal'),story,race,()=>targets('star'),()=>quiz(Q.hindi),()=>quiz(Q.bigger),()=>quiz(Q.table),()=>quiz(Q.opp),()=>quiz(Q.day),()=>quiz(Q.eo),()=>quiz(Q.take),()=>quiz(Q.miss),spell,mole,simon,ttt,guess,()=>quiz(Q.pl),()=>quiz(Q.bigadd),()=>quiz(Q.bigsub),()=>quiz(Q.tablec),()=>quiz(Q.divide),()=>quiz(Q.percent),()=>quiz(Q.half),()=>quiz(Q.pattern),()=>quiz(Q.roman),()=>quiz(Q.algebra),()=>quiz(Q.change),()=>quiz(Q.area),()=>quiz(Q.cap),()=>quiz(Q.bkq),()=>memory(true),spellHard,sudoku,speed,()=>quiz(Q.frac),()=>quiz(Q.dec),()=>quiz(Q.si),()=>quiz(Q.geo),()=>quiz(Q.code),()=>quiz(Q.plural),()=>quiz(Q.nv),()=>quiz(Q.month),()=>quiz(Q.gk),()=>quiz(Q.sci),drawBoard,hang,hanoi,duel,clockGame,pizza,wsearch,maze,ttt2,()=>quiz(Q.cmix),()=>quiz(Q.homes),()=>quiz(Q.fv),()=>quiz(Q.vc),()=>quiz(Q.rhyme),()=>quiz(Q.dice),()=>quiz(Q.bonds),()=>quiz(Q.skip),()=>quiz(Q.coins),react,typing,piano,trace];
+function openGame(i){gStop();curG=i;gst[i]=gst[i]||{p:0};gst[i].p++;store.s('stat',gst);gTitle.textContent=acts[i][1];gFav.textContent=fv.includes(i)?'⭐':'☆';gBody.innerHTML='';if(!gm.open)gm.showModal();G[i]()}
+const acts=[
+['🔢','Number Pop','Pop bubbles and count to 20.'],['🔤','Letter Land','Match letters to animal friends.'],
+['🎵','Sound Maker','Tap soft drums and make a song.'],['🧩','Shape Puzzle','Fit stars, hearts and circles.'],
+['🎨','Color Splash','Mix colors and see what happens.'],['🐸','Frog Hop','Help the frog jump across lily pads.'],
+['🍎','Fruit Match','Find the matching fruit pairs.'],['🚂','Train Builder','Link cars and ride around the track.'],
+['🌱','Grow a Plant','Water a seed and watch it grow.'],['🐘','Animal Sounds','Who says moo? Who says roar?'],
+['⏰','Time Teller','Learn the clock with a friendly owl.'],['🧮','Add It Up','Easy sums with sweet treats.'],
+['🌈','Rainbow Order','Put the colors in the right order.'],['🔍','Spot the Odd','Find the one that is different.'],
+['🏠','Block Town','Stack soft blocks into a town.'],['🌍','Little Explorer','Meet kids and animals around the world.'],
+['🎈','Balloon Pop','Pop only the green balloons.'],['📖','Story Time','Short, silly stories to read along.'],
+['🐢','Slow Race','A calm race where everyone wins.'],['⭐','Star Catcher','Catch falling stars in a basket.'],['क','Hindi Akshar','Which letter does it start with?'],['🔼','Bigger or Smaller','Pick the bigger or smaller number.'],['✖️','Table Master','Quick multiplication questions.'],['↔️','Opposites','Find the opposite word.'],['📅','Day Detective','Which day comes before or after?'],['🎲','Even or Odd','Is the number even or odd?'],['➖','Take Away','Easy subtraction with quick answers.'],['🔡','Missing Letter','Find the letter that is missing.'],['✍️','Spell It','Tap the letters to spell the word.'],['🐹','Whack-a-Mole','Tap the mole before it hides.'],['🎮','Simon Says','Watch the colors and repeat them.'],['❌','Tic-Tac-Toe','Play against the computer.'],['🔢','Guess the Number','Find my secret number from 1 to 100.'],['💰','Profit or Loss','Work out profit or loss from prices.'],['➕','Big Addition','Hard · Add two-digit numbers.'],['➖','Big Subtraction','Hard · Take away two-digit numbers.'],['✖️','Table Challenge','Hard · Tables up to 20.'],['➗','Divide It','Hard · Division facts.'],['％','Percent Pop','Hard · 10%, 25% and 50% of a number.'],['½','Half and Double','Hard · Half, double and quarter.'],['🧠','Number Patterns','Hard · What comes next?'],['🏛️','Roman Numbers','Hard · Read I to XX.'],['🔍','Find x','Hard · Easy algebra puzzles.'],['💵','Make Change','Hard · Work out the change.'],['📐','Area and Perimeter','Hard · Rectangles.'],['🗺️','Capitals Quiz','Hard · Cities of India and the world.'],['क','Barakhadi Quiz','Hard · Build the right barakhadi form.'],['🃏','Mega Memory','Hard · Match 12 pairs.'],['🔤','Big Spelling','Hard · Spell longer words.'],['🧩','Mini Sudoku','Hard · A 4×4 number puzzle.'],['⚡','Speed Math','Hard · Answer fast in 30 seconds.'],['🧮','Fractions','Hard · Add fractions with the same bottom.'],['🔟','Decimals','Hard · Add decimal numbers.'],['🏦','Simple Interest','Hard · Work out the interest.'],['⭕','Shapes Maths','Hard · Area, perimeter and volume.'],['💻','Code Puzzle','Hard · Follow the steps like a computer.'],['📝','Plural Words','Which word is the plural?'],['🔠','Noun, Verb or Adjective','Sort the words.'],['🗓️','Month Quiz','Which month comes before or after?'],['🎖️','GK Quiz','India facts and festivals.'],['🔬','Science Quiz','Planets, body and plants.'],['🎨','Drawing Board','Draw with colors.'],['🔤','Hangman','Guess the word letter by letter.'],['🗼','Tower of Hanoi','Move 3 discs to the last peg.'],['👫','Two-Player Duel','Two kids, one screen, tap fast!'],['🕰️','Clock Maker','Set the hands to the right time.'],['🍕','Pizza Fractions','Colour the right fraction.'],['🔎','Word Search','Find hidden words in the letters.'],['🐭','Maze Runner','Help the mouse find the cheese.'],['⭕','Tic-Tac-Toe for Two','Two players, one screen.'],['🎨','Color Mix','What color do you get?'],['🏠','Animal Homes','Where does it live?'],['🥕','Fruit or Vegetable','Sort the food.'],['🅰️','Vowel or Consonant','Learn the two kinds of letters.'],['🎤','Rhyme Match','Find the word that rhymes.'],['🎲','Lucky Dice','Add up the dice.'],['🔟','Number Bonds','Make 10 and make 20.'],['👣','Skip Counting','Count by 2s, 3s, 5s and 10s.'],['🪙','Coin Counter','Add up the rupees.'],['⚡','Reaction Test','Tap when it turns green.'],['⌨️','Typing Star','Type the words fast.'],['🎹','Little Piano','Play notes on 8 keys.'],['✏️','Trace and Write','Trace letters and numbers with your finger.']];
+const tones=['--g1','--g2','--g3','--g5','--accent','--g4'];
+const grid=document.getElementById('grid'),toast=document.getElementById('toast');let tt;
+acts.forEach((a,i)=>{
+  const b=document.createElement('button');b.className='card clay';b.style.backgroundColor='var('+tones[i%tones.length]+')';
+  b.innerHTML='<div class="ico">'+a[0]+'</div><h3>'+a[1]+'</h3><p>'+a[2]+'</p>';
+  b.addEventListener('click',()=>openGame(i));
+  grid.appendChild(b);
+});
+/* ---------- search, favourites, daily, parent corner ---------- */
+const cards=[...grid.children];
+function refreshFav(){cards.forEach((c,i)=>{c.querySelector('h3').textContent=(fv.includes(i)?'⭐ ':'')+acts[i][1]});const row=document.getElementById('favRow');row.innerHTML='';fv.forEach(i=>{const b=document.createElement('button');b.className='btn g';b.textContent=acts[i][0]+' '+acts[i][1];b.onclick=()=>openGame(i);row.appendChild(b)});document.getElementById('favBox').style.display=fv.length?'':'none';gFav.textContent=fv.includes(curG)?'⭐':'☆'}
+gFav.onclick=()=>{if(curG<0)return;const k=fv.indexOf(curG);if(k<0)fv.push(curG);else fv.splice(k,1);store.s('fav',fv);refreshFav()};
+refreshFav();
+document.getElementById('gSearch').oninput=e=>{const q=e.target.value.toLowerCase();cards.forEach((c,i)=>{c.style.display=(acts[i][1]+' '+acts[i][2]).toLowerCase().includes(q)?'':'none'})};
+const now=new Date(),dIdx=(now.getFullYear()*372+now.getMonth()*31+now.getDate())%acts.length;
+document.getElementById('dName').textContent=acts[dIdx][0]+' '+acts[dIdx][1];document.getElementById('dGo').onclick=()=>openGame(dIdx);
+function renderParent(){const o=document.getElementById('pStats'),ids=Object.keys(gst).sort((a,b)=>gst[b].p-gst[a].p).slice(0,10);
+  o.innerHTML='⭐ Stars won: <b>'+stars+'</b><br>🎮 Different games played: <b>'+Object.keys(gst).length+'</b> of '+acts.length+(ids.length?'<br><br><b>Most played</b><br>'+ids.map(i=>acts[i][0]+' '+acts[i][1]+': '+gst[i].p+(gst[i].p===1?' play':' plays')+(gst[i].b!==undefined?', best '+gst[i].b+'%':'')).join('<br>'):'<br>No games played yet.')}
+renderParent();gm.addEventListener('close',renderParent);
+let armed=false;const pr=document.getElementById('pReset');
+pr.onclick=()=>{if(!armed){armed=true;pr.textContent='Tap again to confirm';setTimeout(()=>{armed=false;pr.textContent='Reset progress'},3000);return}
+  armed=false;pr.textContent='Reset progress';stars=0;gst={};fv=[];hatSel='';['stars','stat','fav','hat'].forEach(k=>store.s(k,k==='stars'?0:k==='hat'?'':k==='stat'?{}:[]));hatEl.textContent='';starC.textContent='⭐ 0';renderWard();refreshFav();renderParent();note('Progress was reset.')};
+const cols=[['#d5f28c','Lime'],['#a8d86e','Leaf green'],['#e85f4a','Tomato red'],['#f6c453','Mango yellow'],['#e9d4a7','Wheat'],['#7fc8a9','Mint']];
+const bl=document.getElementById('blobs');
+cols.forEach(c=>{
+  const b=document.createElement('button');b.className='blob';b.style.backgroundColor=c[0];b.setAttribute('aria-label',c[1]);
+  b.addEventListener('click',()=>{pet.style.backgroundColor=c[0];say.textContent='Ooh, '+c[1].toLowerCase()+'!'});
+  bl.appendChild(b);
+});
+
+/* eyebrow labels */
+const eb={games:'Play games',abc:'Learn letters',hindi:'Learn Hindi',barakhadi:'Hindi barakhadi',hinum:'Hindi counting',cal:'Calendar',cas:'Look and learn',sci:'Science',gk:'India GK',rhy:'Rhymes and stories',parent:'For parents',nums:'Learn numbers',tables:'Practice tables',trig:'Maths',algebra:'Algebra',mathf:'Maths',matrix:'Matrices',plgst:'Money maths',paint:'Customise'};
+document.querySelectorAll('h2[id]').forEach(h=>{if(eb[h.id]){const e=document.createElement('span');e.className='eyebrow';e.textContent=eb[h.id];h.parentNode.insertBefore(e,h)}});
+const pc=document.querySelector('#paint h2');if(pc){const e=document.createElement('span');e.className='eyebrow';e.textContent=eb.paint;pc.parentNode.insertBefore(e,pc)}
+
+/* ---------- menu (3-dot) ---------- */
+const menu=document.getElementById('menu'),menuBtn=document.getElementById('menuBtn'),menuClose=document.getElementById('menuClose'),quickEl=document.getElementById('quick'),navbar=document.getElementById('navbar'),menuQuick=document.getElementById('menuQuick');
+function setMenu(o){menu.classList.toggle('open',o);menu.setAttribute('aria-hidden',String(!o));menuBtn.setAttribute('aria-expanded',String(o));document.body.style.overflow=o?'hidden':'';if(o)menuClose.focus();else if(document.activeElement&&menu.contains(document.activeElement))menuBtn.focus()}
+menuBtn.onclick=()=>setMenu(!menu.classList.contains('open'));
+menuClose.onclick=()=>setMenu(false);document.getElementById('menuShade').onclick=()=>setMenu(false);
+menu.querySelectorAll('.mg a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open'))setMenu(false)});
+const mqS=window.matchMedia('(max-width:560px)'),placeQ=()=>{if(mqS.matches)menuQuick.appendChild(quickEl);else navbar.insertBefore(quickEl,menuBtn)};
+if(mqS.addEventListener)mqS.addEventListener('change',placeQ);else mqS.addListener(placeQ);placeQ();
+</script>
+<script>
+/* ---------- languages (UI translation) ---------- */
+(function(){
+const L=[['en','English','🇬🇧'],['hi','हिन्दी','🇮🇳'],['es','Español','🇪🇸'],['fr','Français','🇫🇷'],['de','Deutsch','🇩🇪'],['ar','العربية','🇸🇦'],['bn','বাংলা','🇧🇩'],['ta','தமிழ்','🇮🇳'],['te','తెలుగు','🇮🇳'],['mr','मराठी','🇮🇳'],['gu','ગુજરાતી','🇮🇳'],['ur','اردو','🇵🇰'],['zh','中文','🇨🇳'],['ja','日本語','🇯🇵']];
+/* key (English) : [hi, es, fr, de, ar] */
+const T={
+'Games':['खेल','Juegos','Jeux','Spiele','ألعاب'],
+'A to Z':['A से Z','De la A a la Z','De A à Z','A bis Z','من A إلى Z'],
+'Maths':['गणित','Matemáticas','Maths','Mathe','الرياضيات'],
+'Parent':['अभिभावक','Padres','Parents','Eltern','الوالدان'],
+'Menu':['मेनू','Menú','Menu','Menü','القائمة'],
+'Settings':['सेटिंग','Ajustes','Réglages','Einstellungen','الإعدادات'],
+'Play':['खेलो','Jugar','Jouer','Spielen','العب'],
+'Letters and numbers':['अक्षर और संख्याएँ','Letras y números','Lettres et chiffres','Buchstaben und Zahlen','الحروف والأرقام'],
+'Look and learn':['देखो और सीखो','Mira y aprende','Regarde et apprends','Schauen und lernen','شاهد وتعلّم'],
+'Grown-ups':['बड़ों के लिए','Para adultos','Pour les grands','Für Erwachsene','للكبار'],
+'🎮 Games':['🎮 खेल','🎮 Juegos','🎮 Jeux','🎮 Spiele','🎮 ألعاب'],
+'🧸 Pudding':['🧸 पुडिंग','🧸 Pudding','🧸 Pudding','🧸 Pudding','🧸 بودينغ'],
+'1 to 100':['1 से 100','Del 1 al 100','De 1 à 100','1 bis 100','من 1 إلى 100'],
+'Tables':['पहाड़े','Tablas','Tables','Einmaleins','جداول الضرب'],
+'Trigonometry':['त्रिकोणमिति','Trigonometría','Trigonométrie','Trigonometrie','حساب المثلثات'],
+'(a+b) rules':['(a+b) नियम','Reglas (a+b)','Règles (a+b)','(a+b)-Regeln','قواعد (a+b)'],
+'All maths':['सारा गणित','Toda la mate','Toutes les maths','Alle Mathe','كل الرياضيات'],
+'Matrix':['आव्यूह','Matriz','Matrice','Matrix','المصفوفات'],
+'Profit & GST':['लाभ और GST','Ganancia e IVA','Profit et TVA','Gewinn & MwSt','الربح والضريبة'],
+'Months and days':['महीने और दिन','Meses y días','Mois et jours','Monate und Tage','الأشهر والأيام'],
+'Colors, animals':['रंग, जानवर','Colores, animales','Couleurs, animaux','Farben, Tiere','ألوان وحيوانات'],
+'Science':['विज्ञान','Ciencia','Sciences','Wissenschaft','العلوم'],
+'India GK':['भारत GK','Cultura de India','Culture indienne','Indien-Wissen','معلومات عن الهند'],
+'Rhymes, stories':['कविताएँ, कहानियाँ','Rimas, cuentos','Comptines, histoires','Reime, Geschichten','أناشيد وقصص'],
+'Parent corner':['अभिभावक कोना','Rincón de padres','Coin des parents','Elternbereich','ركن الوالدين'],
+'Squish, play and learn!':['दबाओ, खेलो और सीखो!','¡Aprieta, juega y aprende!','Presse, joue et apprends !','Drücken, spielen, lernen!','اضغط والعب وتعلّم!'],
+'A soft green clay world made for kids. Poke Pudding to say hi, then pick a game.':['बच्चों के लिए बनी हरी मुलायम मिट्टी की दुनिया। पुडिंग को छुओ और हैलो कहो, फिर कोई खेल चुनो।','Un mundo suave de plastilina verde para niños. Toca a Pudding para saludar y elige un juego.','Un monde d’argile verte et douce pour les enfants. Touche Pudding pour dire bonjour, puis choisis un jeu.','Eine weiche grüne Knetwelt für Kinder. Stups Pudding an und wähle dann ein Spiel.','عالم أخضر من الصلصال الناعم للأطفال. المس بودينغ لتحييه ثم اختر لعبة.'],
+'Let’s play':['चलो खेलें','¡Vamos a jugar!','On joue !','Los geht’s','هيا نلعب'],
+'Paint Pudding':['पुडिंग को रंगो','Pinta a Pudding','Colorie Pudding','Pudding bemalen','لوّن بودينغ'],
+'fun activities':['मज़ेदार गतिविधियाँ','actividades divertidas','activités amusantes','lustige Aktivitäten','أنشطة ممتعة'],
+'Pudding pokes':['पुडिंग को छुआ','toques a Pudding','touches de Pudding','Pudding-Stupser','لمسات بودينغ'],
+'ads, ever':['विज्ञापन, कभी नहीं','anuncios, jamás','pubs, jamais','Werbung, nie','إعلانات، أبدًا'],
+'Pick something fun':['कुछ मज़ेदार चुनो','Elige algo divertido','Choisis quelque chose d’amusant','Such dir etwas Lustiges aus','اختر شيئًا ممتعًا'],
+'Eighty-three games to squish, count, sing and build. Pick a level, and games marked Hard are for bigger kids.':['दबाने, गिनने, गाने और बनाने के तिरासी खेल। स्तर चुनो; कठिन वाले खेल बड़े बच्चों के लिए हैं।','Ochenta y tres juegos para apretar, contar, cantar y construir. Elige un nivel; los difíciles son para los mayores.','Quatre-vingt-trois jeux pour presser, compter, chanter et construire. Choisis un niveau ; les difficiles sont pour les plus grands.','Dreiundachtzig Spiele zum Drücken, Zählen, Singen und Bauen. Wähle eine Stufe; „Schwer“ ist für die Größeren.','ثلاث وثمانون لعبة للضغط والعد والغناء والبناء. اختر مستوى؛ الألعاب الصعبة للأطفال الأكبر.'],
+'⭐ Today\'s challenge':['⭐ आज की चुनौती','⭐ El reto de hoy','⭐ Le défi du jour','⭐ Heutige Herausforderung','⭐ تحدّي اليوم'],
+'Play now':['अभी खेलो','Jugar ya','Jouer','Jetzt spielen','العب الآن'],
+'Level:':['स्तर:','Nivel:','Niveau :','Stufe:','المستوى:'],
+'🟢 Easy':['🟢 आसान','🟢 Fácil','🟢 Facile','🟢 Leicht','🟢 سهل'],
+'🟡 Medium':['🟡 मध्यम','🟡 Medio','🟡 Moyen','🟡 Mittel','🟡 متوسط'],
+'🔴 Hard':['🔴 कठिन','🔴 Difícil','🔴 Difficile','🔴 Schwer','🔴 صعب'],
+'Easy uses smaller numbers. Hard has more questions and less time.':['आसान में छोटी संख्याएँ हैं। कठिन में ज़्यादा सवाल और कम समय है।','Fácil usa números pequeños. Difícil tiene más preguntas y menos tiempo.','Facile : petits nombres. Difficile : plus de questions et moins de temps.','Leicht: kleine Zahlen. Schwer: mehr Fragen und weniger Zeit.','السهل بأرقام أصغر. الصعب بأسئلة أكثر ووقت أقل.'],
+'⭐ Your favourites':['⭐ तुम्हारे पसंदीदा','⭐ Tus favoritos','⭐ Tes favoris','⭐ Deine Favoriten','⭐ المفضلة'],
+'Tap a letter to hear it and its word.':['किसी अक्षर को दबाओ और उसका शब्द सुनो।','Toca una letra para oírla y su palabra.','Touche une lettre pour l’entendre avec son mot.','Tippe auf einen Buchstaben, um ihn zu hören.','المس حرفًا لتسمعه وكلمته.'],
+'▶ Play A to Z':['▶ A से Z सुनो','▶ Reproducir A–Z','▶ Écouter A–Z','▶ A–Z abspielen','▶ تشغيل A–Z'],
+'⏹ Stop':['⏹ रुको','⏹ Parar','⏹ Stop','⏹ Stopp','⏹ إيقاف'],
+'▶ Read all':['▶ सब सुनो','▶ Leer todo','▶ Tout lire','▶ Alles vorlesen','▶ اقرأ الكل'],
+'▶ Read table':['▶ पहाड़ा सुनो','▶ Leer tabla','▶ Lire la table','▶ Tabelle lesen','▶ اقرأ الجدول'],
+'Tap a number to hear it. Or let me count for you.':['किसी संख्या को दबाओ और सुनो। या मैं गिनती सुनाऊँ।','Toca un número para oírlo. O deja que yo cuente.','Touche un nombre pour l’entendre. Ou je compte pour toi.','Tippe auf eine Zahl. Oder ich zähle für dich.','المس رقمًا لتسمعه، أو دعني أعدّ لك.'],
+'▶ Count 1 to 100':['▶ 1 से 100 गिनो','▶ Contar 1 a 100','▶ Compter 1 à 100','▶ Zähle 1 bis 100','▶ عدّ من 1 إلى 100'],
+'Count by 10s':['10-10 में गिनो','Contar de 10 en 10','Compter par 10','In Zehnern zählen','العد بالعشرات'],
+'Tables 1 to 100':['1 से 100 के पहाड़े','Tablas del 1 al 100','Tables de 1 à 100','Einmaleins 1 bis 100','جداول من 1 إلى 100'],
+'Trigonometry formulas':['त्रिकोणमिति के सूत्र','Fórmulas de trigonometría','Formules de trigonométrie','Trigonometrie-Formeln','قوانين المثلثات'],
+'All maths formulas':['गणित के सभी सूत्र','Todas las fórmulas','Toutes les formules','Alle Mathe-Formeln','كل القوانين الرياضية'],
+'Matrix formulas':['आव्यूह के सूत्र','Fórmulas de matrices','Formules de matrices','Matrix-Formeln','قوانين المصفوفات'],
+'Profit, loss and GST':['लाभ, हानि और GST','Ganancia, pérdida e IVA','Profit, perte et TVA','Gewinn, Verlust und MwSt','الربح والخسارة والضريبة'],
+'Months, days and seasons':['महीने, दिन और मौसम','Meses, días y estaciones','Mois, jours et saisons','Monate, Tage und Jahreszeiten','الأشهر والأيام والفصول'],
+'Colors, shapes and animals':['रंग, आकार और जानवर','Colores, formas y animales','Couleurs, formes et animaux','Farben, Formen und Tiere','ألوان وأشكال وحيوانات'],
+'Science for kids':['बच्चों के लिए विज्ञान','Ciencia para niños','Sciences pour enfants','Wissenschaft für Kinder','علوم للأطفال'],
+'Search games...':['खेल खोजो...','Buscar juegos...','Chercher des jeux...','Spiele suchen...','ابحث عن لعبة...']
+};
+const norm=s=>s.replace(/[’‘]/g,"'");
+const K={};Object.keys(T).forEach(k=>K[norm(k)]=T[k]);
+const KS=['Games','A to Z','Maths','Parent','Menu','Settings','Play','Letters and numbers','Look and learn','Grown-ups','Science','Tables','1 to 100','Squish, play and learn!','Let’s play','Paint Pudding','fun activities','Pudding pokes','Pick something fun','Play now','Level:','🟢 Easy','🟡 Medium','🔴 Hard','⏹ Stop','▶ Read all','Science for kids','Search games...','Matrix','Parent corner'];
+const X={
+bn:['খেলা','A থেকে Z','গণিত','অভিভাবক','মেনু','সেটিংস','খেলো','অক্ষর ও সংখ্যা','দেখো ও শেখো','বড়দের জন্য','বিজ্ঞান','নামতা','1 থেকে 100','চাপো, খেলো আর শেখো!','চলো খেলি','পুডিংকে রঙ করো','মজার কার্যক্রম','পুডিংকে ছোঁয়া','মজার কিছু বেছে নাও','এখনই খেলো','স্তর:','🟢 সহজ','🟡 মাঝারি','🔴 কঠিন','⏹ থামো','▶ সব শোনো','শিশুদের বিজ্ঞান','খেলা খুঁজো...','ম্যাট্রিক্স','অভিভাবক কোণ'],
+ta:['விளையாட்டுகள்','A முதல் Z','கணிதம்','பெற்றோர்','மெனு','அமைப்புகள்','விளையாடு','எழுத்துகளும் எண்களும்','பார்த்து கற்றுக்கொள்','பெரியவர்களுக்கு','அறிவியல்','வாய்ப்பாடு','1 முதல் 100','அழுத்து, விளையாடு, கற்றுக்கொள்!','விளையாடலாம்','புடிங்கை வண்ணமிடு','வேடிக்கை செயல்பாடுகள்','புடிங் தொடுதல்கள்','வேடிக்கையாக ஏதாவது தேர்ந்தெடு','இப்போது விளையாடு','நிலை:','🟢 எளிது','🟡 நடுத்தரம்','🔴 கடினம்','⏹ நிறுத்து','▶ அனைத்தையும் கேள்','குழந்தைகளுக்கான அறிவியல்','விளையாட்டுகளைத் தேடு...','அணி','பெற்றோர் பகுதி'],
+te:['ఆటలు','A నుండి Z','గణితం','తల్లిదండ్రులు','మెనూ','సెట్టింగ్‌లు','ఆడు','అక్షరాలు మరియు సంఖ్యలు','చూసి నేర్చుకో','పెద్దల కోసం','సైన్స్','ఎక్కాలు','1 నుండి 100','నొక్కు, ఆడు, నేర్చుకో!','ఆడుదాం','పుడింగ్‌కు రంగు వేయి','సరదా కార్యకలాపాలు','పుడింగ్ తాకినవి','సరదాగా ఏదైనా ఎంచుకో','ఇప్పుడే ఆడు','స్థాయి:','🟢 సులభం','🟡 మధ్యస్థం','🔴 కష్టం','⏹ ఆపు','▶ అన్నీ వినండి','పిల్లల కోసం సైన్స్','ఆటలు వెతుకు...','మాట్రిక్స్','తల్లిదండ్రుల విభాగం'],
+mr:['खेळ','A ते Z','गणित','पालक','मेनू','सेटिंग्ज','खेळा','अक्षरे आणि संख्या','पाहा आणि शिका','मोठ्यांसाठी','विज्ञान','पाढे','1 ते 100','दाबा, खेळा आणि शिका!','चला खेळूया','पुडिंगला रंगवा','मजेदार उपक्रम','पुडिंगला स्पर्श','काहीतरी मजेदार निवडा','आत्ता खेळा','पातळी:','🟢 सोपे','🟡 मध्यम','🔴 कठीण','⏹ थांबा','▶ सर्व ऐका','मुलांसाठी विज्ञान','खेळ शोधा...','मॅट्रिक्स','पालक कोपरा'],
+gu:['રમતો','A થી Z','ગણિત','વાલી','મેનુ','સેટિંગ્સ','રમો','અક્ષરો અને સંખ્યાઓ','જુઓ અને શીખો','મોટા માટે','વિજ્ઞાન','ઘડિયા','1 થી 100','દબાવો, રમો અને શીખો!','ચાલો રમીએ','પુડિંગને રંગો','મજાની પ્રવૃત્તિઓ','પુડિંગને અડકવું','કંઈક મજાનું પસંદ કરો','હમણાં રમો','સ્તર:','🟢 સરળ','🟡 મધ્યમ','🔴 અઘરું','⏹ અટકો','▶ બધું સાંભળો','બાળકો માટે વિજ્ઞાન','રમતો શોધો...','મેટ્રિક્સ','વાલી ખૂણો'],
+ur:['کھیل','A سے Z','ریاضی','والدین','مینو','ترتیبات','کھیلو','حروف اور اعداد','دیکھو اور سیکھو','بڑوں کے لیے','سائنس','پہاڑے','1 سے 100','دباؤ، کھیلو اور سیکھو!','آؤ کھیلیں','پڈنگ کو رنگو','مزے کی سرگرمیاں','پڈنگ کو چھوا','کچھ مزے کا چنو','ابھی کھیلو','سطح:','🟢 آسان','🟡 درمیانہ','🔴 مشکل','⏹ رکو','▶ سب سنو','بچوں کے لیے سائنس','کھیل تلاش کرو...','میٹرکس','والدین کا گوشہ'],
+zh:['游戏','A到Z','数学','家长','菜单','设置','玩','字母和数字','看一看学一学','大人专区','科学','乘法表','1到100','捏一捏，玩一玩，学一学！','来玩吧','给布丁涂色','好玩的活动','戳布丁次数','选个好玩的','马上玩','难度：','🟢 简单','🟡 中等','🔴 困难','⏹ 停止','▶ 全部朗读','儿童科学','搜索游戏...','矩阵','家长角'],
+ja:['ゲーム','AからZ','算数','保護者','メニュー','設定','あそぶ','文字と数字','見て学ぼう','おとなのかた','理科','かけ算表','1から100','ぎゅっと、あそんで、まなぼう！','あそぼう','プリンをぬろう','たのしい活動','プリンをつついた数','たのしいものを選ぼう','いますぐあそぶ','レベル：','🟢 かんたん','🟡 ふつう','🔴 むずかしい','⏹ ストップ','▶ ぜんぶ読む','子ども向け理科','ゲームをさがす...','行列','保護者コーナー']};
+Object.keys(X).forEach(c=>{const i=L.findIndex(x=>x[0]===c);KS.forEach((k,j)=>{const kk=norm(k);K[kk]=K[kk]||[];K[kk][i-1]=X[c][j]})});
+let cur='en';
+function walk(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;
+  while(n=w.nextNode()){
+    const p=n.parentNode&&n.parentNode.nodeName;if(p==='SCRIPT'||p==='STYLE')continue;
+    if(n._o===undefined){const t=n.nodeValue.trim();if(!t||!K[norm(t)])continue;n._o=n.nodeValue}
+    const t=n._o.trim(),i=L.findIndex(x=>x[0]===cur),lead=n._o.match(/^\s*/)[0],trail=n._o.match(/\s*$/)[0];
+    n.nodeValue=i<=0?n._o:lead+(K[norm(t)][i-1]||t)+trail;
+  }
+  document.querySelectorAll('input[placeholder]').forEach(e=>{
+    if(e._o===undefined){if(!K[norm(e.placeholder)])return;e._o=e.placeholder}
+    const i=L.findIndex(x=>x[0]===cur);e.placeholder=i<=0?e._o:(K[norm(e._o)][i-1]||e._o)});
+}
+function setLang(c){
+  cur=c;document.documentElement.dir=(c==='ar'||c==='ur')?'rtl':'ltr';
+  try{localStorage.setItem('puffyLang',c)}catch(e){}
+  walk(document.body);sel.value=c;
+}
+const sel=document.createElement('select');sel.id='langSel';sel.setAttribute('aria-label','Language');
+sel.style.cssText='font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer';
+L.forEach(l=>{const o=document.createElement('option');o.value=l[0];o.textContent=l[2]+' '+l[1];sel.appendChild(o)});
+sel.addEventListener('change',()=>setLang(sel.value));
+const nb=document.getElementById('navbar'),mb=document.getElementById('menuBtn');
+nb.insertBefore(sel,mb);
+/* ---- voice follows language ---- */
+const V={hi:'hi-IN',es:'es-ES',fr:'fr-FR',de:'de-DE',ar:'ar-SA',bn:'bn-IN',ta:'ta-IN',te:'te-IN',mr:'mr-IN',gu:'gu-IN',ur:'ur-PK',zh:'zh-CN',ja:'ja-JP'};
+const W={hi:['गुणा','बराबर'],es:['por','es'],fr:['fois','égale'],de:['mal','ist'],ar:['في','يساوي'],bn:['গুণ','সমান'],ta:['முறை','சமம்'],te:['సార్లు','సమానం'],mr:['गुणिले','बरोबर'],gu:['ગુણ','બરાબર'],ur:['ضرب','برابر'],zh:['乘以','等于'],ja:['かける','は']};
+const hasVoice=c=>{try{return speechSynthesis.getVoices().some(v=>v.lang.toLowerCase().startsWith(c.slice(0,2)))}catch(e){return false}};
+speak=function(txt,onstart,onend){
+  if(!soundOn||!('speechSynthesis' in window)){onstart&&onstart();setTimeout(()=>onend&&onend(),900);return}
+  let t=txt,lang='en-US';
+  if(cur!=='en'&&V[cur]){
+    const m=/^(\d+) times (\d+) is (\d+)$/.exec(txt);
+    if(m||/^\d+$/.test(txt)){const v=speechSynthesis.getVoices();if(!v.length||hasVoice(V[cur])){lang=V[cur];if(m)t=m[1]+' '+W[cur][0]+' '+m[2]+' '+W[cur][1]+' '+m[3]}}
+  }
+  const u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1.3;u.lang=lang;
+  u.onstart=()=>onstart&&onstart();u.onend=()=>onend&&onend();u.onerror=()=>onend&&onend();
+  speechSynthesis.speak(u)};
+let s='en';try{s=localStorage.getItem('puffyLang')||'en'}catch(e){}
+if(s!=='en')setLang(s);
+})();
+</script>
+<script>
+/* ---------- PWA + backup ---------- */
+(function(){
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+let dp=null;const ib=document.getElementById('instBtn');
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display=''});
+ib.onclick=()=>{if(dp){dp.prompt();dp=null;ib.style.display='none'}};
+addEventListener('appinstalled',()=>{ib.style.display='none'});
+document.getElementById('bkpOut').onclick=()=>{
+  const o={};try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('pp_')||k==='puffyLang')o[k]=localStorage.getItem(k)}}catch(e){}
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));
+  a.download='shmk-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove()};
+const f=document.getElementById('bkpFile');
+document.getElementById('bkpIn').onclick=()=>f.click();
+f.onchange=()=>{const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);Object.keys(o).forEach(k=>{if(k.startsWith('pp_')||k==='puffyLang')localStorage.setItem(k,o[k])});alert('Backup restored ✅');location.reload()}catch(e){alert('This file is not a SHMK KID backup.')}};if(f.files[0])r.readAsText(f.files[0])};
+})();
+</script>
+</body>
+</html>
