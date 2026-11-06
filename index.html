@@ -191,6 +191,24 @@ nav.clay{margin-left:calc(var(--pad,22px)*-1);margin-right:calc(var(--pad,22px)*
   nav b{font-size:19px}
 }
 @media(max-width:380px){#langSel{width:58px;max-width:58px}nav b{font-size:16px}}
+/* ---- colour themes ---- */
+.hero.clay{background:linear-gradient(120deg,var(--h1,#0b4937),var(--h2,#247c57))}
+.eye,.mouth{background:var(--eye,#0b4937)}
+@media (prefers-color-scheme:light){
+:root[data-pal="candy"]{--bg:#fff5fa;--tint:#ffe3ef;--lime:#ffd23f;--line:#f6d3e2;--text:#4a1d35;--ink:#4a1d35;--muted:#8a5a73;--green:#c2185b;--brand:#c2185b;--ring:#c2185b;--green2:#e91e8c;--eyebrow:#e91e8c;--eye:#c2185b;--h1:#c2185b;--h2:#ff6fa5}
+:root[data-pal="ocean"]{--bg:#eefaff;--tint:#d9f0ff;--lime:#ffd08a;--line:#cfe6f3;--text:#0d2f4a;--ink:#0d2f4a;--muted:#55768d;--green:#0d5aa7;--brand:#0d5aa7;--ring:#0d5aa7;--green2:#1e88e5;--eyebrow:#1e88e5;--eye:#0d5aa7;--h1:#0d5aa7;--h2:#1e88e5}
+:root[data-pal="sunny"]{--bg:#fffaf0;--tint:#ffedcc;--lime:#8fe3d8;--line:#f3e2c4;--text:#4a2a00;--ink:#4a2a00;--muted:#8a6a3a;--green:#b85c00;--brand:#b85c00;--ring:#b85c00;--green2:#ff8a00;--eyebrow:#ff8a00;--eye:#b85c00;--h1:#c76200;--h2:#ff8a00}
+:root[data-pal="unicorn"]{--bg:#faf5ff;--tint:#eddcff;--lime:#ffc2da;--line:#e4d4f5;--text:#2f1a4d;--ink:#2f1a4d;--muted:#7a6591;--green:#6b3fb5;--brand:#6b3fb5;--ring:#6b3fb5;--green2:#9c6ade;--eyebrow:#9c6ade;--eye:#6b3fb5;--h1:#6b3fb5;--h2:#9c6ade}
+}
+#palSel{font:inherit;font-size:15px;padding:8px 6px;border:1px solid var(--line);background:var(--surface);color:var(--text);cursor:pointer}
+@media(max-width:800px){#palSel{width:58px;font-size:13px;padding:8px 2px}}
+/* ---- green + orange default ---- */
+.pet{background:var(--pet,var(--lime))}
+@media (prefers-color-scheme:light){
+:root:not([data-pal]),:root[data-pal="green"]{--lime:#ff8a1f;--accent:#ffd9ad;--tint:#fff1e0;--eyebrow:#e06a00;--pet:#d5f28c;--line:#eadfce}
+:root:not([data-pal]) .hero .btn.g,:root[data-pal="green"] .hero .btn.g{border-color:#ff8a1f}
+}
+:root:not([data-pal]) .btn:not(.g):not(.t),:root[data-pal="green"] .btn:not(.g):not(.t){color:#2a1200}
 </style>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0b4937">
@@ -1344,6 +1362,22 @@ document.getElementById('bkpOut').onclick=()=>{
 const f=document.getElementById('bkpFile');
 document.getElementById('bkpIn').onclick=()=>f.click();
 f.onchange=()=>{const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);Object.keys(o).forEach(k=>{if(k.startsWith('pp_')||k==='puffyLang')localStorage.setItem(k,o[k])});alert('Backup restored ✅');location.reload()}catch(e){alert('This file is not a SHMK KID backup.')}};if(f.files[0])r.readAsText(f.files[0])};
+})();
+</script>
+<script>
+/* ---------- colour theme picker ---------- */
+(function(){
+const P=[['green','🌿 Green + Orange','#0b4937'],['candy','🍬 Candy','#c2185b'],['ocean','🌊 Ocean','#0d5aa7'],['sunny','🍊 Sunny','#b85c00'],['unicorn','🦄 Unicorn','#6b3fb5']];
+const sel=document.createElement('select');sel.id='palSel';sel.setAttribute('aria-label','Colour theme');sel.title='Colours';
+P.forEach(p=>{const o=document.createElement('option');o.value=p[0];o.textContent=p[1];sel.appendChild(o)});
+const meta=document.querySelector('meta[name="theme-color"]');
+function set(n){document.documentElement.setAttribute('data-pal',n);sel.value=n;try{localStorage.setItem('shmkPal',n)}catch(e){}
+  if(meta)meta.content=(P.find(p=>p[0]===n)||P[0])[2]}
+sel.addEventListener('change',()=>set(sel.value));
+const nb=document.getElementById('navbar'),ls=document.getElementById('langSel')||document.getElementById('menuBtn');
+nb.insertBefore(sel,ls);
+let s='green';try{s=localStorage.getItem('shmkPal')||'green'}catch(e){}
+set(P.some(p=>p[0]===s)?s:'green');
 })();
 </script>
 </body>
